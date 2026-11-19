@@ -1,13 +1,24 @@
-/* Palette tokens. Placeholder greens: replace the 3 --green-* values with the client's logo codes. */
+/* Plus Jakarta Sans (SIL OFL), latin subset, variable 200-800, self-hosted for offline use. */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2");
+}
+
+/* Tokens. Green is the ONE accent: replace the 3 --green-* values with the client's logo codes. */
 :root {
-  --green-1: #1d5c3f; /* dark: headings, buttons, footer */
-  --green-2: #3d9a69; /* mid: accents, links */
-  --green-3: #cfe8d8; /* light: chips, tints */
-  --cream: #f7f3e8;   /* page background */
-  --cream-2: #efe9d8; /* alt section background */
-  --ink: #1f2a24;
-  --muted: #5d6b63;
-  --line: #ded8c6;
-  --card: #fffdf7;
-  --font: "Inter", "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --green-1: #1f6b45; /* CTA, active, arrows */
+  --green-2: #17543a; /* hover */
+  --green-3: #e8f2ec; /* tint: trust line, tooltip */
+  --ink: #202020;
+  --ink-2: #4d4d4d;
+  --ink-3: #8a8a8a;
+  --bg: #ffffff;
+  --surface: #f7f7f7;
+  --line: #e5e5e5;
+  --r: 4px;      /* frame: buttons, boxes */
+  --r-img: 8px;  /* product images, hero */
+  --font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
 }
