@@ -1,0 +1,13 @@
+/* Palette tokens. Placeholder greens: replace the 3 --green-* values with the client's logo codes. */
+:root {
+  --green-1: #1d5c3f; /* dark: headings, buttons, footer */
+  --green-2: #3d9a69; /* mid: accents, links */
+  --green-3: #cfe8d8; /* light: chips, tints */
+  --cream: #f7f3e8;   /* page background */
+  --cream-2: #efe9d8; /* alt section background */
+  --ink: #1f2a24;
+  --muted: #5d6b63;
+  --line: #ded8c6;
+  --card: #fffdf7;
+  --font: "Inter", "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+}
