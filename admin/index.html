@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Admin Panel | PT Karmand Mitra Andalan</title>
+<link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/admin.css">
+</head><body>
+<div class="shell">
+ <aside class="side" id="side">
+  <div class="side-top"><img src="../assets/logo.png" alt="Karmand"><span class="side-tag">Admin</span></div>
+  <nav id="sidenav"></nav>
+  <div class="side-foot">
+   <a class="btn outline sm" href="../index.html">Lihat Website &rarr;</a>
+   <button class="btn outline sm" id="btn-reset" type="button">Reset Data Demo</button>
+   <button class="btn danger sm" id="btn-logout" type="button">Keluar</button>
+  </div>
+ </aside>
+ <div class="main">
+  <header class="topbar">
+   <div class="topbar-left">
+    <button class="burger" id="burger" type="button" aria-label="Menu">&#9776;</button>
+    <h1 id="page-title">Dashboard</h1>
+   </div>
+   <div class="topbar-right" id="topbar-actions"></div>
+  </header>
+  <main class="content" id="view"></main>
+ </div>
+</div>
+
+<div class="drawer-bg" id="drawer-bg">
+ <div class="drawer">
+  <div class="drawer-head"><h3 id="drawer-title">Detail</h3><button class="btn outline sm" id="drawer-close" type="button">Tutup</button></div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot" id="drawer-foot"></div>
+ </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="../js/admin.js"></script>
+</body></html>
