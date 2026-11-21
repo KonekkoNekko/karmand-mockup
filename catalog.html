@@ -6,16 +6,22 @@
 </head><body data-page="catalog">
 <div id="hdr"></div>
 <main class="wrap">
- <div class="pagehead">
-  <div class="eyebrow">Katalog Produk</div>
-  <h1 id="cat-title">Semua Produk</h1>
-  <p id="cat-desc">Rangkaian lengkap produk kimia industri PT Karmand Mitra Andalan untuk proteksi korosi, maintenance, pengolahan air, fabrikasi FRP, dan bahan pendukung proses.</p>
+ <div class="pagehead" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+  <div>
+   <div class="eyebrow">Katalog Produk</div>
+   <h1 id="cat-title">Semua Produk</h1>
+   <p id="cat-desc">Rangkaian lengkap produk kimia industri PT Karmand Mitra Andalan untuk proteksi korosi, maintenance, pengolahan air, fabrikasi FRP, dan bahan pendukung proses.</p>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+   <a class="btn" href="#pdf" data-pdf="catalog" data-na="File PDF katalog disediakan client">Download PDF Katalog</a>
+   <a class="btn outline" href="#pdf" data-pdf="profile" data-na="File PDF company profile disediakan client">Company Profile (PDF)</a>
+  </div>
  </div>
  <div class="toolbar">
   <div class="tabs" id="cat-tabs"></div>
   <input class="search" id="cat-search" type="search" placeholder="Cari produk, kode, atau kemasan...">
  </div>
- <div class="catmeta"><span id="cat-count"></span><a class="more" href="contact.html">Butuh konsultasi teknis? Hubungi kami &rarr;</a></div>
+ <div class="catmeta"><span id="cat-count"></span><a class="more" id="cat-wa" href="#">Butuh konsultasi teknis? WhatsApp kami &rarr;</a></div>
  <div class="catgrid" id="cat-grid"></div>
 </main>
 <div id="ftr"></div>

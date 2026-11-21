@@ -15,9 +15,9 @@
   --ink: #202020;
   --ink-2: #4d4d4d;
   --ink-3: #8a8a8a;
-  --bg: #ffffff;
-  --surface: #f7f7f7;
-  --line: #e5e5e5;
+  --bg: #faf9f6;       /* warm Jotun off-white / cream */
+  --surface: #f2f1ed;  /* warm stone surface */
+  --line: #e4e2dc;     /* warm hairline */
   --r: 4px;      /* frame: buttons, boxes */
   --r-img: 8px;  /* product images, hero */
   --font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;

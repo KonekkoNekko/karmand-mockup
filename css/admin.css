@@ -80,6 +80,9 @@ tr:hover td{background:#fcfcfc}
 .search:focus{outline:none;border-color:var(--green-1)}
 .chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
 .chk input{width:auto}
+.img-up{border:1px dashed var(--line);border-radius:var(--r);padding:12px;background:var(--surface);display:grid;gap:10px}
+.img-up img{max-height:160px;width:auto;max-width:100%;border-radius:var(--r);border:1px solid var(--line);object-fit:contain;background:#fff}
+.img-up-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
 /* drawer modal */
 .drawer-bg{position:fixed;inset:0;background:rgba(32,32,32,.42);display:none;justify-content:flex-end;z-index:100}

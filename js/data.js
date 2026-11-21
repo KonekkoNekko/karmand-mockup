@@ -8,8 +8,8 @@ window.KM_SEED = {
   "phone": "+62 21 1234 5678",
   "email": "karmandandalan@gmail.com",
   "wa": "6281353468612",
-  "hours": "08:00 - 17:00 WIB",
-  "hoursWeekend": "08:00 - 13:00 WIB",
+  "hours": "Senin - Jumat: 08:00 - 17:00 WIB",
+  "hoursWeekend": "Sabtu - Minggu: 08:00 - 13:00 WIB (Minggu tutup)",
   "instagram": "https://instagram.com/karmandofficial",
   "facebook": "https://www.facebook.com/",
   "linktree": "https://linktr.ee/karmandsby"
@@ -218,6 +218,7 @@ window.KM_SEED = {
    },
    "composition": "Zinc dust 95%, organic resin binder, solvent system",
    "price": 850000,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-zinc",
    "shopee_link": "https://shopee.co.id/karmand-zinc",
    "is_active": true,
@@ -247,6 +248,7 @@ window.KM_SEED = {
    },
    "composition": "Zinc dust 95%, organic resin binder, solvent system",
    "price": 250000,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-epoxy",
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
@@ -276,6 +278,7 @@ window.KM_SEED = {
    },
    "composition": "Zinc dust 95%, organic resin binder, solvent system",
    "price": 170000,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-epoxy",
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
@@ -304,6 +307,7 @@ window.KM_SEED = {
    },
    "composition": "Epoxy resin, zinc phosphate",
    "price": 170000,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-epoxy",
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
@@ -328,6 +332,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi special acrylic resin, pigment dan weather resistant agent.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-rustconverter",
    "shopee_link": "https://shopee.co.id/karmand-rustconverter",
    "is_active": true,
@@ -352,6 +357,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi resin, plastisizer, dan solvent.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-insulating",
    "shopee_link": "https://shopee.co.id/karmand-insulating",
    "is_active": true,
@@ -376,6 +382,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi resin, plastisizer, dan solvent.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-insulating-red",
    "shopee_link": "https://shopee.co.id/karmand-insulating-red",
    "is_active": true,
@@ -399,6 +406,7 @@ window.KM_SEED = {
    },
    "composition": "Bahan aktif yang bereaksi dengan lemak, bahan – bahan dari cellulose, dan inhibitor.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-drain",
    "shopee_link": "https://shopee.co.id/karmand-drain",
    "is_active": true,
@@ -423,6 +431,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi pelarut, bahan aktif, dan zat pengemulsi.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-contact-cleaner",
    "shopee_link": "https://shopee.co.id/karmand-contact-cleaner",
    "is_active": true,
@@ -446,6 +455,7 @@ window.KM_SEED = {
    },
    "composition": "Polyurethane resin, UV stabilizer, pigment, solvent",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-pu",
    "shopee_link": "https://shopee.co.id/karmand-pu",
    "is_active": true,
@@ -471,6 +481,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi bahan aktif biocide, surfactant dan dispersing agent",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-sn01",
    "shopee_link": "https://shopee.co.id/karmand-sn01",
    "is_active": true,
@@ -497,6 +508,7 @@ window.KM_SEED = {
    },
    "composition": "Suatu kombinasi phosphate, sequestrant dan dispersant.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-ctt1000",
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
@@ -523,6 +535,7 @@ window.KM_SEED = {
    },
    "composition": "Tri Sodium Phosphate High Grade",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-ctt1000",
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
@@ -547,6 +560,7 @@ window.KM_SEED = {
    },
    "composition": "Kombinasi basa pekat dan polymer jenis anionik.",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-ctt1000",
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
@@ -566,6 +580,7 @@ window.KM_SEED = {
    "props": {},
    "composition": "",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-frptank",
    "shopee_link": "https://shopee.co.id/karmand-frptank",
    "is_active": true,
@@ -585,6 +600,7 @@ window.KM_SEED = {
    "props": {},
    "composition": "",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-frppipe",
    "shopee_link": "https://shopee.co.id/karmand-frppipe",
    "is_active": true,
@@ -604,6 +620,7 @@ window.KM_SEED = {
    "props": {},
    "composition": "",
    "price": null,
+   "image": "",
    "tokopedia_link": "https://tokopedia.link/karmand-scrubber",
    "shopee_link": "https://shopee.co.id/karmand-scrubber",
    "is_active": true,
@@ -679,6 +696,56 @@ window.KM_SEED = {
  ],
  "portfolios": [
   {
+   "id": 101,
+   "title": "Job Rayhan",
+   "slug": "job-rayhan",
+   "tag": "Dokumentasi Proyek",
+   "client": "PT Karmand Mitra Andalan",
+   "location": "Surabaya, Jawa Timur",
+   "duration": "Sesuai jadwal proyek",
+   "value": "",
+   "description": "Dokumentasi pekerjaan lapangan Job Rayhan. Foto dokumentasi dapat diunggah langsung oleh admin melalui menu Portofolio di Admin Panel.",
+   "scope": [
+    "Persiapan permukaan & inspeksi lapangan",
+    "Aplikasi produk kimia industri Karmand",
+    "Quality control & serah terima pekerjaan"
+   ],
+   "challenges": "Menjaga standar kualitas aplikasi sesuai spesifikasi teknis di area operasional aktif.",
+   "results": [
+    "Pekerjaan selesai tepat waktu sesuai standar mutu",
+    "Foto dokumentasi siap diunggah dari Admin Panel"
+   ],
+   "image": "",
+   "is_featured": true,
+   "is_active": true,
+   "created_at": "2026-11-21 09:00:00"
+  },
+  {
+   "id": 102,
+   "title": "Job Taufiq",
+   "slug": "job-taufiq",
+   "tag": "Dokumentasi Proyek",
+   "client": "PT Karmand Mitra Andalan",
+   "location": "Surabaya, Jawa Timur",
+   "duration": "Sesuai jadwal proyek",
+   "value": "",
+   "description": "Dokumentasi pekerjaan lapangan Job Taufiq. Foto dokumentasi dapat diunggah langsung oleh admin melalui menu Portofolio di Admin Panel.",
+   "scope": [
+    "Survey lokasi & penentuan spesifikasi produk",
+    "Pelaksanaan aplikasi & supervisi teknis",
+    "Evaluasi hasil akhir bersama klien"
+   ],
+   "challenges": "Penyesuaian metode aplikasi terhadap kondisi lingkungan industri di lapangan.",
+   "results": [
+    "Hasil aplikasi merata dan memenuhi target proteksi",
+    "Foto dokumentasi siap diunggah dari Admin Panel"
+   ],
+   "image": "",
+   "is_featured": true,
+   "is_active": true,
+   "created_at": "2026-11-21 09:00:00"
+  },
+  {
    "id": 1,
    "title": "Coating & Painting Project - PT Pertamina",
    "slug": "coating-painting-project-pt-pertamina",
@@ -703,6 +770,7 @@ window.KM_SEED = {
     "Penyelesaian 2 minggu lebih cepat dari jadwal",
     "Client satisfaction rating: 9.5/10"
    ],
+   "image": "",
    "is_featured": true,
    "is_active": true,
    "created_at": "2026-01-16 09:22:57"
@@ -732,6 +800,7 @@ window.KM_SEED = {
     "Cooling tower efficiency meningkat 15%",
     "ROI tercapai dalam 18 bulan"
    ],
+   "image": "",
    "is_featured": true,
    "is_active": true,
    "created_at": "2026-01-16 09:22:58"
@@ -761,6 +830,7 @@ window.KM_SEED = {
     "Unplanned downtime berkurang 40%",
     "Contract diperpanjang untuk 3 tahun berikutnya"
    ],
+   "image": "",
    "is_featured": true,
    "is_active": true,
    "created_at": "2026-01-16 09:22:59"
@@ -790,6 +860,7 @@ window.KM_SEED = {
     "Commissioning sukses tanpa issue",
     "Client memberikan referensi untuk 3 proyek serupa"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:00"
@@ -819,6 +890,7 @@ window.KM_SEED = {
     "Coating warranty: 10 tahun",
     "Penghargaan Best Safety Performance dari client"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:01"
@@ -848,6 +920,7 @@ window.KM_SEED = {
     "Microbial counts consistently within acceptable limits",
     "Client renewal for another 3-year contract"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:02"
@@ -877,6 +950,7 @@ window.KM_SEED = {
     "Peningkatan kualitas udara kerja di area produksi",
     "Client satisfaction rating: 9/10"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:03"
@@ -906,6 +980,7 @@ window.KM_SEED = {
     "Peningkatan umur peralatan hingga 20%",
     "Contract diperpanjang untuk 5 tahun berikutnya"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:04"
@@ -935,6 +1010,7 @@ window.KM_SEED = {
     "Holiday detection test passed dengan zero defect",
     "Client order 2 kapal additional untuk coating project"
    ],
+   "image": "",
    "is_featured": false,
    "is_active": true,
    "created_at": "2026-01-16 09:23:05"
@@ -1717,11 +1793,22 @@ window.KM_SEED = {
    "created_at": "2026-01-16 09:22:57",
    "updated_at": "2026-01-16 09:22:57"
   }
- ]
+ ],
+ "documents": {
+  "catalogPdf": "",
+  "catalogPdfName": "Katalog-Produk-Karmand.pdf",
+  "companyProfilePdf": "",
+  "companyProfilePdfName": "Company-Profile-Karmand.pdf"
+ },
+ "seo": {
+  "metaTitle": "PT Karmand Mitra Andalan | Cold Galvanize, FRP, Chemical & Industrial Solutions",
+  "metaDescription": "Penyedia solusi kimia industri berkualitas tinggi untuk cold galvanize, coating, chemical maintenance, water treatment, dan fabrikasi FRP.",
+  "metaKeywords": "cold galvanize, water treatment, coating industri, chemical maintenance, fabrikasi FRP, karmandsby"
+ }
 };
 
 (function () {
-  var KEY = "km_mockup_v2_db_1";
+  var KEY = "km_mockup_v2_db_2";
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
   function load() {
     try {

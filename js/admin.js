@@ -94,6 +94,7 @@
       fields: [
         { k: 'name', l: 'Nama Produk', req: true },
         { k: 'category', l: 'Kategori', type: 'select', opts: function (db) { return db.sections.map(function (s) { return [s[0], s[1]]; }); } },
+        { k: 'image', l: 'Foto Packaging Produk', type: 'image' },
         { k: 'packaging', l: 'Kemasan' },
         { k: 'price', l: 'Harga (Rp)' },
         { k: 'description', l: 'Deskripsi', type: 'textarea', req: true },
@@ -110,6 +111,7 @@
       cols: [['title', 'Judul Proyek'], ['client', 'Klien'], ['tag', 'Tag'], ['is_active', 'Status']],
       fields: [
         { k: 'title', l: 'Judul Proyek', req: true },
+        { k: 'image', l: 'Foto Dokumentasi Proyek', type: 'image' },
         { k: 'tag', l: 'Tag Kategori', req: true },
         { k: 'client', l: 'Klien', req: true },
         { k: 'location', l: 'Lokasi' },
@@ -223,6 +225,9 @@
     if (!item) return;
     var kvHtml = '<dl class="kv">' + cfg.fields.map(function (f) {
       var val = item[f.k];
+      if (f.type === 'image') {
+        return '<div><dt>' + esc(f.l) + '</dt><dd>' + (val ? '<img src="' + esc(val) + '" alt="" style="max-height:160px;border:1px solid var(--line);border-radius:var(--r)">' : '<span style="color:var(--ink-3)">Belum ada foto (menggunakan placeholder)</span>') + '</dd></div>';
+      }
       if (f.type === 'checkbox') val = val ? 'Ya' : 'Tidak';
       return '<div><dt>' + esc(f.l) + '</dt><dd>' + esc(val == null || val === '' ? '-' : val) + '</dd></div>';
     }).join('') + '</dl>';
@@ -280,12 +285,37 @@
     };
   }
 
+  function resizeImageFile(file, cb) {
+    var fr = new FileReader();
+    fr.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 800, s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.naturalWidth * s));
+        c.height = Math.max(1, Math.round(img.naturalHeight * s));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        cb(c.toDataURL('image/jpeg', 0.84));
+      };
+      img.onerror = function () { cb(fr.result); };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  }
+
   function openResourceForm(route, id) {
     var cfg = RESOURCES[route];
     var db = window.KMStore.get();
     var existing = id != null ? db[cfg.key].filter(function (x) { return String(x.id) === String(id); })[0] : null;
     var html = '<form class="form" id="res-form">' + cfg.fields.map(function (f) {
       var val = existing ? existing[f.k] : (f.def !== undefined ? f.def : '');
+      if (f.type === 'image') {
+        return '<div class="field"><label>' + esc(f.l) + '</label><div class="img-up">' +
+          '<input type="hidden" name="' + f.k + '" value="' + esc(val || '') + '">' +
+          '<div id="prev-' + f.k + '">' + (val ? '<img src="' + esc(val) + '" alt="Preview">' : '<span style="font-size:12.5px;color:var(--ink-3)">Belum ada foto (tampil placeholder di website)</span>') + '</div>' +
+          '<div class="img-up-row"><input type="file" accept="image/*" data-img-file="' + f.k + '"><button class="btn outline sm" type="button" data-img-clear="' + f.k + '">Hapus Foto</button></div>' +
+          '</div></div>';
+      }
       if (f.type === 'checkbox') {
         return '<label class="chk"><input type="checkbox" name="' + f.k + '"' + (val ? ' checked' : '') + '> ' + esc(f.l) + '</label>';
       }
@@ -300,6 +330,23 @@
     }).join('') + '</form>';
 
     openDrawer((existing ? 'Edit ' : 'Tambah ') + cfg.title, html, '<button class="btn outline" type="button" id="df-close">Batal</button><button class="btn" type="submit" form="res-form">Simpan</button>');
+    $$('[data-img-file]').forEach(function (inp) {
+      inp.onchange = function () {
+        var file = inp.files && inp.files[0]; if (!file) return;
+        var k = inp.dataset.imgFile;
+        resizeImageFile(file, function (dataUrl) {
+          $('#res-form').elements[k].value = dataUrl;
+          $('#prev-' + k).innerHTML = '<img src="' + dataUrl + '" alt="Preview">';
+        });
+      };
+    });
+    $$('[data-img-clear]').forEach(function (btn) {
+      btn.onclick = function () {
+        var k = btn.dataset.imgClear;
+        $('#res-form').elements[k].value = '';
+        $('#prev-' + k).innerHTML = '<span style="font-size:12.5px;color:var(--ink-3)">Belum ada foto (tampil placeholder di website)</span>';
+      };
+    });
     $('#res-form').onsubmit = function (e) {
       e.preventDefault();
       var fd = new FormData(e.target);
@@ -522,23 +569,62 @@
   function renderSettings() {
     var db = window.KMStore.get();
     var S = db.site;
+    var docs = db.documents || {};
+    var seo = db.seo || {};
     $('#page-title').textContent = 'Site Settings';
     $('#topbar-actions').innerHTML = '';
-    $('#view').innerHTML = '<div class="panel"><div class="panel-head"><h2>Pengaturan Website &amp; Kontak</h2></div><div class="panel-body"><form class="form" id="set-form">' +
+    $('#view').innerHTML = '<div class="panel"><div class="panel-head"><h2>Pengaturan Website, Dokumen PDF &amp; SEO Backend</h2></div><div class="panel-body"><form class="form" id="set-form">' +
       '<div class="frow"><div class="field"><label>Nama Perusahaan</label><input name="name" value="' + esc(S.name) + '"></div><div class="field"><label>Tagline</label><input name="tagline" value="' + esc(S.tagline) + '"></div></div>' +
       '<div class="frow"><div class="field"><label>Email</label><input name="email" value="' + esc(S.email) + '"></div><div class="field"><label>Telepon</label><input name="phone" value="' + esc(S.phone) + '"></div></div>' +
       '<div class="frow"><div class="field"><label>WhatsApp (628...)</label><input name="wa" value="' + esc(S.wa) + '"></div><div class="field"><label>Domain</label><input name="domain" value="' + esc(S.domain) + '"></div></div>' +
       '<div class="field"><label>Alamat Lengkap</label><textarea name="address">' + esc(S.address) + '</textarea></div>' +
-      '<div class="frow"><div class="field"><label>Jam Operasional (Senin-Jumat)</label><input name="hours" value="' + esc(S.hours) + '"></div><div class="field"><label>Jam Operasional (Akhir Pekan)</label><input name="hoursWeekend" value="' + esc(S.hoursWeekend) + '"></div></div>' +
-      '<div class="frow"><div class="field"><label>Instagram URL</label><input name="instagram" value="' + esc(S.instagram) + '"></div><div class="field"><label>Facebook URL</label><input name="facebook" value="' + esc(S.facebook) + '"></div></div>' +
+      '<div class="frow"><div class="field"><label>Jam Operasional (Senin-Jumat)</label><input name="hours" value="' + esc(S.hours) + '"></div><div class="field"><label>Jam Operasional (Sabtu-Minggu, 1 baris)</label><input name="hoursWeekend" value="' + esc(S.hoursWeekend) + '"></div></div>' +
+      '<div class="frow"><div class="field"><label>Instagram URL</label><input name="instagram" value="' + esc(S.instagram) + '"></div><div class="field"><label>Linktree URL</label><input name="linktree" value="' + esc(S.linktree) + '"></div></div>' +
+      '<div style="border-top:1px solid var(--line);padding-top:16px;margin-top:6px"><b style="font-size:14px">Dokumen PDF (Download Katalog &amp; Company Profile)</b></div>' +
+      '<div class="frow">' +
+      '<div class="field"><label>URL / File PDF Katalog</label><input name="catalogPdf" value="' + esc(docs.catalogPdf || '') + '" placeholder="https://... atau unggah PDF di bawah"><input type="file" accept="application/pdf" id="pdf-cat-up" style="margin-top:6px"></div>' +
+      '<div class="field"><label>URL / File PDF Company Profile</label><input name="companyProfilePdf" value="' + esc(docs.companyProfilePdf || '') + '" placeholder="https://... atau unggah PDF di bawah"><input type="file" accept="application/pdf" id="pdf-prof-up" style="margin-top:6px"></div>' +
+      '</div>' +
+      '<div style="border-top:1px solid var(--line);padding-top:16px;margin-top:6px"><b style="font-size:14px">SEO Backend (Hanya di Meta Tag &lt;head&gt;, Tidak Tampil di Halaman)</b></div>' +
+      '<div class="field"><label>Meta Title</label><input name="metaTitle" value="' + esc(seo.metaTitle || '') + '"></div>' +
+      '<div class="field"><label>Meta Description</label><textarea name="metaDescription">' + esc(seo.metaDescription || '') + '</textarea></div>' +
+      '<div class="field"><label>Meta Keywords</label><input name="metaKeywords" value="' + esc(seo.metaKeywords || '') + '"></div>' +
       '<div><button class="btn" type="submit">Simpan Pengaturan</button></div>' +
       '</form></div></div>';
+
+    function bindPdf(inpId, fieldName, nameKey) {
+      var el = $('#' + inpId);
+      if (!el) return;
+      el.onchange = function () {
+        var f = el.files && el.files[0]; if (!f) return;
+        var fr = new FileReader();
+        fr.onload = function () {
+          $('#set-form').elements[fieldName].value = fr.result;
+          db.documents = db.documents || {};
+          db.documents[nameKey] = f.name;
+          toast('PDF siap disimpan: ' + f.name);
+        };
+        fr.readAsDataURL(f);
+      };
+    }
+    bindPdf('pdf-cat-up', 'catalogPdf', 'catalogPdfName');
+    bindPdf('pdf-prof-up', 'companyProfilePdf', 'companyProfilePdfName');
+
     $('#set-form').onsubmit = function (e) {
       e.preventDefault();
       var fd = new FormData(e.target);
-      ['name', 'tagline', 'email', 'phone', 'wa', 'domain', 'address', 'hours', 'hoursWeekend', 'instagram', 'facebook'].forEach(function (k) { db.site[k] = fd.get(k); });
+      ['name', 'tagline', 'email', 'phone', 'wa', 'domain', 'address', 'hours', 'hoursWeekend', 'instagram', 'linktree'].forEach(function (k) { db.site[k] = fd.get(k); });
+      db.documents = Object.assign({}, db.documents || {}, {
+        catalogPdf: fd.get('catalogPdf'),
+        companyProfilePdf: fd.get('companyProfilePdf')
+      });
+      db.seo = {
+        metaTitle: fd.get('metaTitle'),
+        metaDescription: fd.get('metaDescription'),
+        metaKeywords: fd.get('metaKeywords')
+      };
       window.KMStore.save(db);
-      toast('Pengaturan website tersimpan.');
+      toast('Pengaturan website, PDF, dan SEO tersimpan.');
     };
   }
 

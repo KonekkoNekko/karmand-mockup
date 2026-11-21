@@ -39,6 +39,24 @@
   function photoSlot(label) {
     return '<svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="200" fill="#ececec"/><text x="150" y="104" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="11" fill="#a3a3a3" letter-spacing="1">' + esc(label) + '</text></svg>';
   }
+  function productVisual(p, v) {
+    if (p && p.image) return '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover">';
+    return productArt(p ? p.name : '', v);
+  }
+  function portfolioVisual(p, label) {
+    if (p && p.image) return '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" style="width:100%;height:100%;object-fit:cover">';
+    return photoSlot(label || 'FOTO PROYEK');
+  }
+
+  /* Backend-configured SEO meta tags (invisible on page) */
+  if (D.seo) {
+    [['description', D.seo.metaDescription], ['keywords', D.seo.metaKeywords]].forEach(function (pair) {
+      if (!pair[1]) return;
+      var m = document.querySelector('meta[name="' + pair[0] + '"]');
+      if (!m) { m = document.createElement('meta'); m.setAttribute('name', pair[0]); document.head.appendChild(m); }
+      m.setAttribute('content', pair[1]);
+    });
+  }
 
   var toastEl;
   function toast(t) {
@@ -47,41 +65,39 @@
     clearTimeout(toast.t); toast.t = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
   }
 
-  /* Shared chrome */
+  /* Shared chrome — exact 5-item header per client brief Section B */
   var page = document.body.dataset.page;
   var menu = [
     ['Beranda', 'index.html', page === 'home'],
-    ['Katalog', 'catalog.html', page === 'catalog' || page === 'product'],
+    ['Katalog', 'catalog.html', page === 'catalog'],
+    ['Produk', 'product.html', page === 'product'],
     ['Portofolio', 'portfolio.html', page === 'portfolio' || page === 'portfolio-detail'],
-    ['Blogs', 'blogs.html', page === 'blogs' || page === 'blog-detail'],
-    ['Tentang', 'about.html', page === 'about'],
-    ['Karir', 'career.html', page === 'career'],
-    ['Kontak', 'contact.html', page === 'contact']
+    ['Blogs', 'blogs.html', page === 'blogs' || page === 'blog-detail']
   ];
   var navHtml = menu.map(function (m) {
-    var drop = m[0] === 'Katalog' ? '<div class="drop"><a href="catalog.html"><span>Semua Produk</span><span class="arrow">&rsaquo;</span></a>' + D.sections.map(function (s) {
+    var drop = m[0] === 'Produk' ? '<div class="drop"><a href="catalog.html"><span>Semua Produk</span><span class="arrow">&rsaquo;</span></a>' + D.sections.map(function (s) {
       return '<a href="catalog.html?cat=' + encodeURIComponent(s[0]) + '"><span>' + esc(s[1]) + '</span><span class="arrow">&rsaquo;</span></a>';
     }).join('') + '</div>' : '';
     return '<li><a class="top' + (m[2] ? ' on' : '') + '" href="' + m[1] + '">' + m[0] + '</a>' + drop + '</li>';
   }).join('');
 
   $('#hdr').outerHTML =
-    '<div class="util"><div class="wrap"><span>' + esc(S.domain) + '</span><div class="r"><a href="#pdf" data-na="File PDF company profile disediakan client">Company Profile</a><a href="#pdf" data-na="File PDF katalog disediakan client">Download Katalog</a><a href="admin/login.html">Admin Panel</a><span>ID</span></div></div></div>' +
+    '<div class="util"><div class="wrap"><span>' + esc(S.domain) + '</span><div class="r"><a href="#pdf" data-pdf="profile" data-na="File PDF company profile disediakan client">Company Profile</a><a href="#pdf" data-pdf="catalog" data-na="File PDF katalog disediakan client">Download Katalog</a><span>ID</span></div></div></div>' +
     '<header class="hdr"><div class="wrap"><a class="logo" href="index.html"><img src="assets/logo.png" alt="' + esc(S.name) + '"></a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button><ul class="nav">' + navHtml + '</ul></div></header>';
 
   var q = encodeURIComponent(S.address);
-  var flink = function (h, t, na) { return '<a href="' + h + '"' + (na ? ' data-na="' + esc(na) + '"' : '') + '><span>' + esc(t) + '</span><span class="arrow">&rarr;</span></a>'; };
+  var flink = function (h, t, na, ext) { return '<a href="' + h + '"' + (na ? ' data-na="' + esc(na) + '"' : '') + (ext ? ' target="_blank" rel="noopener"' : '') + '><span>' + esc(t) + '</span><span class="arrow">&rarr;</span></a>'; };
   $('#ftr').outerHTML = '<footer class="ftr"><div class="wrap"><div class="cols">' +
     '<div><div class="logo"><img src="assets/logo.png" alt="' + esc(S.name) + '"></div><p>Penyedia solusi kimia industri: cold galvanize, coating, chemical maintenance, water treatment, dan FRP.</p><p style="margin-top:12px">' + esc(S.hours) + '<br>' + esc(S.hoursWeekend) + '</p></div>' +
-    '<div class="links">' + flink('catalog.html', 'Katalog Produk') + flink('portfolio.html', 'Portofolio') + flink('blogs.html', 'Blogs & Artikel') + flink('about.html', 'Tentang Kami') + flink('career.html', 'Karir') + flink('contact.html', 'Hubungi Kami') + flink('admin/login.html', 'Admin Panel') + '</div>' +
+    '<div class="links">' + flink('catalog.html', 'Katalog') + flink('product.html', 'Produk') + flink('portfolio.html', 'Portofolio') + flink('blogs.html', 'Blogs') + flink(S.linktree, 'Linktree', '', true) + '</div>' +
     '<div><h4>Lokasi</h4><div class="map"><iframe title="Peta lokasi Karmand" loading="lazy" src="https://www.google.com/maps?q=' + q + '&output=embed"></iframe></div><p>' + esc(S.address) + '</p>' +
     '<div class="contact" style="margin-top:8px"><a href="tel:' + esc(S.phone.replace(/\s/g, '')) + '">' + esc(S.phone) + '</a><a href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a><a href="' + wa() + '">WhatsApp</a><a href="' + esc(S.instagram) + '">Instagram</a><a href="' + esc(S.facebook) + '">Facebook</a></div></div>' +
-    '</div><div class="copy"><span>&copy; 2026 ' + esc(S.name) + '</span><span>' + esc(S.domain) + ' &middot; revamp mockup (foto &amp; warna masih placeholder)</span></div></div></footer>';
+    '</div><div class="copy"><span>&copy; 2026 ' + esc(S.name) + '</span><span>' + esc(S.domain) + ' &middot; mockup, foto dan warna masih placeholder</span></div></div></footer>';
 
   var ico = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>';
   var b = document.createElement('div'); b.className = 'bubble';
   b.innerHTML = '<div class="tip" id="tip">Ada pertanyaan? Chat kami</div><div class="bpanel" id="bp"><p>Hubungi Kami</p>' +
-    '<a class="wa" href="' + wa() + '"><span>Chat WhatsApp</span><span>&rarr;</span></a><a href="contact.html"><span>Form Kontak</span><span>&rarr;</span></a><a href="mailto:' + esc(S.email) + '"><span>Email kantor</span><span>&rarr;</span></a><a href="#pdf" data-na="Company profile PDF disediakan client"><span>Company Profile (PDF)</span><span>&rarr;</span></a><a href="https://www.google.com/maps?q=' + q + '"><span>Google Maps</span><span>&rarr;</span></a><a href="' + esc(S.linktree) + '"><span>Semua tautan (Linktree)</span><span>&rarr;</span></a></div>' +
+    '<a class="wa" href="' + wa() + '"><span>Chat WhatsApp</span><span>&rarr;</span></a><a href="mailto:' + esc(S.email) + '"><span>Email kantor</span><span>&rarr;</span></a><a href="#pdf" data-pdf="profile" data-na="Company profile PDF disediakan client"><span>Company Profile (PDF)</span><span>&rarr;</span></a><a href="' + esc(S.instagram) + '"><span>Sosial media</span><span>&rarr;</span></a><a href="https://www.google.com/maps?q=' + q + '"><span>Google Maps</span><span>&rarr;</span></a><a href="' + esc(S.linktree) + '"><span>Semua tautan (Linktree)</span><span>&rarr;</span></a></div>' +
     '<button class="bubble-btn" id="bb" aria-label="Hubungi Kami" aria-expanded="false">' + ico + '</button>';
   document.body.appendChild(b);
   setTimeout(function () { var t = $('#tip'); if (t) t.classList.add('hide'); }, 6000);
@@ -90,6 +106,22 @@
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a'); if (!a) return;
+    if (a.dataset.pdf) {
+      e.preventDefault();
+      var docs = D.documents || {};
+      var isCat = a.dataset.pdf === 'catalog';
+      var url = isCat ? docs.catalogPdf : docs.companyProfilePdf;
+      var fname = isCat ? (docs.catalogPdfName || 'Katalog-Produk-Karmand.pdf') : (docs.companyProfilePdfName || 'Company-Profile-Karmand.pdf');
+      if (url) {
+        var dl = document.createElement('a');
+        dl.href = url;
+        if (url.indexOf('data:') === 0) dl.download = fname; else { dl.target = '_blank'; dl.rel = 'noopener'; }
+        dl.click();
+        return;
+      }
+      toast(a.dataset.na || 'File PDF disediakan client');
+      return;
+    }
     if (a.dataset.na) { e.preventDefault(); toast(a.dataset.na); }
   });
 
@@ -98,10 +130,10 @@
   var publishedBlogs = function () { return (D.blogPosts || []).filter(function (p) { return p.is_published !== false; }); };
 
   var pcard = function (p) {
-    return '<a class="pc" href="product.html?p=' + encodeURIComponent(p.slug) + '"><div class="img">' + productArt(p.name) + '</div><div class="nm">' + esc(p.name) + '</div><div class="sub">' + esc(secName[p.category] || p.category) + '</div><div class="val">' + esc(p.packaging || '') + '</div></a>';
+    return '<a class="pc" href="product.html?p=' + encodeURIComponent(p.slug) + '"><div class="img">' + productVisual(p) + '</div><div class="nm">' + esc(p.name) + '</div><div class="sub">' + esc(secName[p.category] || p.category) + '</div><div class="val">' + esc(p.packaging || '') + '</div></a>';
   };
   var pfCard = function (p) {
-    return '<a class="fc" href="portfolio-detail.html?slug=' + encodeURIComponent(p.slug) + '"><div class="img">' + photoSlot('FOTO PROYEK') + '</div><div class="box"><div class="eyebrow">' + esc(p.tag) + '</div><div class="t" style="margin-top:4px"><span>' + esc(p.title) + '</span><span class="arrow">&rarr;</span></div><div class="d">' + esc(p.client) + ' &middot; ' + esc(p.location) + '</div></div></a>';
+    return '<a class="fc" href="portfolio-detail.html?slug=' + encodeURIComponent(p.slug) + '"><div class="img">' + portfolioVisual(p, 'FOTO PROYEK') + '</div><div class="box"><div class="eyebrow">' + esc(p.tag) + '</div><div class="t" style="margin-top:4px"><span>' + esc(p.title) + '</span><span class="arrow">&rarr;</span></div><div class="d">' + esc(p.client) + ' &middot; ' + esc(p.location) + '</div></div></a>';
   };
   var blogCard = function (p) {
     return '<a class="fc" href="blog-detail.html?slug=' + encodeURIComponent(p.slug) + '"><div class="img">' + photoSlot('FOTO ARTIKEL') + '</div><div class="box"><div class="eyebrow">' + esc(String(p.category || '').replace(/-/g, ' ')) + ' &middot; ' + esc(p.read_time) + ' min</div><div class="t" style="margin-top:4px"><span>' + esc(p.title) + '</span><span class="arrow">&rarr;</span></div><div class="d">' + esc(p.excerpt) + '</div></div></a>';
@@ -168,6 +200,7 @@
       };
     });
     searchEl.oninput = renderCat;
+    var catWa = $('#cat-wa'); if (catWa) catWa.href = wa('Halo Karmand, saya ingin konsultasi teknis mengenai produk di katalog.');
     renderCat();
   }
 
@@ -179,12 +212,13 @@
     if (!p) { location.replace('404.html'); return; }
     document.title = p.name + ' | ' + S.name;
     $('#crumb').innerHTML = '<a href="index.html">Beranda</a> &nbsp;&rsaquo;&nbsp; <a href="catalog.html">Katalog</a> &nbsp;&rsaquo;&nbsp; <a href="catalog.html?cat=' + encodeURIComponent(p.category) + '">' + esc(secName[p.category] || p.category) + '</a> &nbsp;&rsaquo;&nbsp; ' + esc(p.name);
-    var th = [0, 1, 2].map(function (i) { return '<button class="' + (i ? '' : 'on') + '" data-v="' + i + '" aria-label="Foto ' + (i + 1) + '">' + productArt(p.name, i) + '</button>'; }).join('');
-    $('#gal').innerHTML = '<div class="main" id="main">' + productArt(p.name, 0) + '</div><div class="prog"><i id="pi"></i></div><div class="thumbs">' + th + '</div>';
+    var th = [0, 1, 2].map(function (i) { return '<button class="' + (i ? '' : 'on') + '" data-v="' + i + '" aria-label="Foto ' + (i + 1) + '">' + (i === 0 ? productVisual(p, 0) : productArt(p.name, i)) + '</button>'; }).join('');
+    $('#gal').innerHTML = '<div class="main" id="main">' + productVisual(p, 0) + '</div><div class="prog"><i id="pi"></i></div><div class="thumbs">' + th + '</div>';
     $$('.thumbs button').forEach(function (bt) {
       bt.onclick = function () {
         $$('.thumbs button').forEach(function (x) { x.classList.remove('on'); }); bt.classList.add('on');
-        $('#main').innerHTML = productArt(p.name, +bt.dataset.v); $('#pi').style.left = (+bt.dataset.v * 33.3) + '%';
+        var vi = +bt.dataset.v;
+        $('#main').innerHTML = vi === 0 ? productVisual(p, 0) : productArt(p.name, vi); $('#pi').style.left = (vi * 33.3) + '%';
       };
     });
     var mkts = '';
@@ -253,7 +287,7 @@
     var specs = [['Klien', p.client], ['Lokasi', p.location], ['Durasi', p.duration], ['Nilai Proyek', p.value]].filter(function (x) { return x[1]; });
     $('#pf-detail').innerHTML =
       '<div class="pagehead" style="border:0;padding-bottom:20px"><div class="eyebrow">' + esc(p.tag) + '</div><h1>' + esc(p.title) + '</h1><p>' + esc(p.description) + '</p></div>' +
-      '<div class="artcover">' + photoSlot('FOTO DOKUMENTASI PROYEK') + '</div>' +
+      '<div class="artcover">' + portfolioVisual(p, 'FOTO DOKUMENTASI PROYEK') + '</div>' +
       (specs.length ? '<dl class="speclist">' + specs.map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl>' : '') +
       '<div class="split2" style="padding:12px 0 44px">' +
       (p.scope && p.scope.length ? '<div><h2 class="h-shelf">Ruang Lingkup Pekerjaan</h2><ul class="bullet">' + p.scope.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '') +
