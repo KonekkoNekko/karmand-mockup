@@ -24,7 +24,7 @@ ul{list-style:none}
 .btn.outline:hover{background:var(--surface)}
 
 /* header: Jotun 2-row, thin */
-.util{border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-2)}
+.util{background:#fff;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-2)}
 .util .wrap{display:flex;justify-content:space-between;align-items:center;height:34px}
 .util .r{display:flex;gap:22px}
 .util a:hover{color:var(--ink)}
@@ -52,7 +52,7 @@ ul{list-style:none}
 .slide p{color:var(--ink-2);margin-bottom:20px}
 .slide .pic{height:260px;justify-self:end;width:100%;max-width:420px}
 .bar{position:absolute;left:56px;bottom:20px;display:flex;gap:6px}
-.bar button{width:40px;height:2px;border:0;background:#d6d6d6;cursor:pointer;padding:0}
+.bar button{width:40px;height:2px;border:0;background:var(--line);cursor:pointer;padding:0}
 .bar button.on{background:var(--accent)}
 
 /* Kick Avenue shelf cards: borderless */
@@ -69,7 +69,7 @@ ul{list-style:none}
 .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .fgrid.five{grid-template-columns:repeat(5,1fr);gap:16px}
 .fc{display:block}
-.fc .img{aspect-ratio:3/2;background:#ececec;overflow:hidden}
+.fc .img{aspect-ratio:3/2;background:var(--surface-2);overflow:hidden}
 .fc .img svg{width:100%;height:100%}
 .fc .box{background:var(--surface);padding:16px 18px 20px}
 .fc .t{display:flex;justify-content:space-between;gap:10px;font-size:16px;font-weight:400}
@@ -82,7 +82,7 @@ ul{list-style:none}
 .stats b{display:block;font-size:64px;font-weight:300;line-height:1.1;letter-spacing:-.02em}
 .stats span{font-size:13px;color:var(--ink-2)}
 .partners{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 40px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
-.partners span{font-size:15px;font-weight:600;color:#a3a3a3;letter-spacing:.02em}
+.partners span{font-size:15px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
 
 .about{max-width:760px;margin:0 auto;text-align:center}
 .about p.lead{font-size:24px;font-weight:300;line-height:1.45;margin:14px 0 26px}
@@ -116,7 +116,7 @@ ul{list-style:none}
 .feat p{font-size:13.5px;color:var(--ink-2)}
 
 /* footer: Jotun */
-.ftr{border-top:1px solid var(--line);margin-top:32px}
+.ftr{background:#fff;border-top:1px solid var(--line);margin-top:32px}
 .ftr .cols>*{min-width:0}
 .ftr .cols{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:56px;padding:48px 0 36px}
 .ftr .logo img{height:30px;margin-bottom:14px}

@@ -22,13 +22,13 @@
     return { code: m ? m[0] : n.split(' ').slice(0, 2).join(' '), series: series.length > 30 ? series.slice(0, 29) + '…' : series };
   }
   function productArt(name, v) {
-    var c = code(name), bg = ['#f7f7f7', '#f2f2f2', '#efefef'][v || 0];
+    var c = code(name), bg = ['#edfaf9', '#e5f7f6', '#dcf4f3'][v || 0];
     return '<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + esc(name) + '"><rect width="400" height="400" fill="' + bg + '"/>' +
       '<text x="200" y="196" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="40" font-weight="800" font-style="italic" fill="' + green + '">' + esc(c.code) + '</text>' +
-      '<text x="200" y="230" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="15" fill="#8a8a8a">' + esc(c.series) + '</text></svg>';
+      '<text x="200" y="230" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="15" fill="#5f7d88">' + esc(c.series) + '</text></svg>';
   }
   function photoSlot(label) {
-    return '<svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="200" fill="#ececec"/><text x="150" y="104" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="11" fill="#a3a3a3" letter-spacing="1">' + esc(label) + '</text></svg>';
+    return '<svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="200" fill="#e0f9f8"/><text x="150" y="104" text-anchor="middle" font-family="Plus Jakarta Sans,Segoe UI,Arial" font-size="11" fill="#5f7d88" letter-spacing="1">' + esc(label) + '</text></svg>';
   }
 
   var toastEl;
@@ -88,7 +88,7 @@
     var heroProd = ['karmand-cold-galvanize-k-404-cg-pail-20kg', 'karmand-boiler-scale-preventif-k-301-bp', 'karmand-frp-tank-fabrication'];
     $('#hero').innerHTML = D.hero.map(function (h, i) {
       var p = D.products.filter(function (x) { return x.slug === heroProd[i]; })[0] || D.products[i];
-      return '<div class="slide' + (i ? '' : ' on') + '"><div class="txt"><div class="eyebrow">' + esc(S.tagline) + '</div><h1>' + esc(h.title) + ' ' + esc(h.highlight) + '</h1><p>' + esc(h.text) + '</p><a class="btn" href="product.html?p=' + p.slug + '">' + esc(h.cta) + '</a></div><div class="pic">' + productArt(p.name, 0).replace('fill="#f7f7f7"', 'fill="none"') + '</div></div>';
+      return '<div class="slide' + (i ? '' : ' on') + '"><div class="txt"><div class="eyebrow">' + esc(S.tagline) + '</div><h1>' + esc(h.title) + ' ' + esc(h.highlight) + '</h1><p>' + esc(h.text) + '</p><a class="btn" href="product.html?p=' + p.slug + '">' + esc(h.cta) + '</a></div><div class="pic">' + productArt(p.name, 0).replace('fill="#edfaf9"', 'fill="none"') + '</div></div>';
     }).join('') + '<div class="bar">' + D.hero.map(function (_, i) { return '<button aria-label="Slide ' + (i + 1) + '"' + (i ? '' : ' class="on"') + '></button>'; }).join('') + '</div>';
     var si = 0, slides = $$('.slide'), dots = $$('.bar button');
     var go = function (n) { si = (n + slides.length) % slides.length; slides.forEach(function (s, i) { s.classList.toggle('on', i === si); dots[i].classList.toggle('on', i === si); }); };

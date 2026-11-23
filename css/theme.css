@@ -7,24 +7,24 @@
   src: url(../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2");
 }
 
-/* Official Corporate Brand Palette (Option B: 60% white/surface, 30% #05374E navy, 10% #02CECB cyan) */
+/* Official Corporate Brand Palette — Subtle Ice-Aqua (#02CECB <-> #FFFFFF) + #05374E Navy */
 :root {
   --brand-navy: #05374e;       /* Corporate Primary (RGB 5/55/78, CMYK 98/73/46/41) */
   --brand-navy-hover: #032636; /* Darker navy hover state */
   --brand-cyan: #02cecb;       /* Corporate Accent (RGB 2/206/203, CMYK 67/0/28/0) */
-  --brand-tint: #e6faf9;       /* Soft cyan tint for trust bar */
 
   --green-1: var(--brand-navy);       /* CTA, links, wordmarks, arrows */
   --green-2: var(--brand-navy-hover); /* hover */
-  --green-3: var(--brand-tint);       /* tint: trust line */
+  --green-3: #e0f9f8;                 /* 12% #02CECB + 88% #FFFFFF: trust bar */
   --accent: var(--brand-cyan);        /* 10% highlight: active nav, hero bar, trust border, bubble icon */
 
-  --ink: #202020;
-  --ink-2: #4d4d4d;
-  --ink-3: #8a8a8a;
-  --bg: #ffffff;
-  --surface: #f7f7f7;
-  --line: #e5e5e5;
+  --ink: #0f2933;              /* Cool deep slate-ink */
+  --ink-2: #425b66;            /* Secondary body text */
+  --ink-3: #6e8791;            /* Muted eyebrows & captions */
+  --bg: #f7fdfd;               /* 3% #02CECB + 97% #FFFFFF page canvas */
+  --surface: #edfaf9;          /* 7% #02CECB + 93% #FFFFFF cards, hero, about band */
+  --surface-2: #e0f9f8;        /* 12% #02CECB + 88% #FFFFFF photo slots */
+  --line: #d4ecec;             /* Cool aqua hairline divider */
   --r: 4px;      /* frame: buttons, boxes */
   --r-img: 8px;  /* product images, hero */
   --font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
