@@ -13,6 +13,10 @@
   --brand-navy-hover: #032636; /* Darker navy hover state */
   --brand-cyan: #02cecb;       /* Corporate Accent (RGB 2/206/203, CMYK 67/0/28/0) */
 
+  /* 9-step brand scale: navy -> cyan -> white (revisi 2, U5). Text on cyan = navy. */
+  --p1: #05374e; --p2: #045d6d; --p3: #04838d; --p4: #03a8ac; --p5: #02cecb;
+  --p6: #41dad8; --p7: #81e7e5; --p8: #c0f3f2; --p9: #ffffff;
+
   --green-1: var(--brand-navy);       /* CTA, links, wordmarks, arrows */
   --green-2: var(--brand-navy-hover); /* hover */
   --green-3: #e0f9f8;                 /* 12% #02CECB + 88% #FFFFFF: trust bar */

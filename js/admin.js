@@ -37,9 +37,9 @@
 
   var NAV_GROUPS = [
     { label: 'Utama', items: [['dashboard', 'Dashboard']] },
-    { label: 'Konten Situs', items: [['about', 'About Us'], ['home-content', 'Home Content'], ['home-stats', 'Home Stats'], ['hero-sliders', 'Hero Sliders'], ['management-teams', 'Management Team'], ['partners', 'Partners']] },
-    { label: 'Katalog & Publikasi', items: [['products', 'Products'], ['portfolios', 'Portfolios'], ['blog-posts', 'Blog Posts'], ['job-positions', 'Job Positions']] },
-    { label: 'Inbox & Sistem', items: [['contacts', 'Contacts'], ['job-applications', 'Job Applications'], ['newsletters', 'Newsletters'], ['settings', 'Settings']] }
+    { label: 'Konten Situs', items: [['about', 'About Us'], ['home-content', 'Home Content'], ['home-stats', 'Home Stats'], ['hero-sliders', 'Hero Sliders'], ['partners', 'Partners']] },
+    { label: 'Katalog & Publikasi', items: [['products', 'Products'], ['portfolios', 'Portfolios'], ['blog-posts', 'Blog Posts']] },
+    { label: 'Inbox & Sistem', items: [['newsletters', 'Newsletters'], ['settings', 'Settings']] }
   ];
 
   function countFor(route, db) {
@@ -50,11 +50,7 @@
       'hero-sliders': db.hero.length,
       'home-content': db.homeContents.length,
       'home-stats': db.homeStats.length,
-      'management-teams': db.managementTeams.length,
       partners: db.partnerRecords.length,
-      'job-positions': db.jobPositions.length,
-      contacts: db.contacts.length,
-      'job-applications': db.jobApplications.length,
       newsletters: db.newsletters.length
     };
     return map[route] != null ? map[route] : '';
@@ -98,13 +94,17 @@
         { k: 'packaging', l: 'Kemasan' },
         { k: 'price', l: 'Harga (Rp)' },
         { k: 'description', l: 'Deskripsi', type: 'textarea', req: true },
+        { k: 'highlights', l: 'Poin Keunggulan (satu per baris)', type: 'textarea' },
         { k: 'composition', l: 'Komposisi', type: 'textarea' },
         { k: 'usage', l: 'Cara Pakai', type: 'textarea' },
-        { k: 'tokopedia_link', l: 'Link Tokopedia' },
-        { k: 'shopee_link', l: 'Link Shopee' },
         { k: 'is_active', l: 'Aktif di website', type: 'checkbox', def: true }
       ],
-      beforeSave: function (item) { if (!item.slug) item.slug = slugify(item.name); }
+      sortable: true,
+      beforeSave: function (item) {
+        if (!item.slug) item.slug = slugify(item.name);
+        if (typeof item.highlights === 'string') item.highlights = item.highlights.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+        if (item.order == null) item.order = (window.KMStore.get().products || []).reduce(function (m, x) { return Math.max(m, x.order || 0); }, 0) + 1;
+      }
     },
     portfolios: {
       title: 'Portfolios', key: 'portfolios', toggleKey: 'is_active',
@@ -180,17 +180,6 @@
         }
       }
     },
-    'management-teams': {
-      title: 'Management Team', key: 'managementTeams', toggleKey: 'is_active',
-      cols: [['name', 'Nama'], ['position', 'Jabatan'], ['order', 'Urutan'], ['is_active', 'Status']],
-      fields: [
-        { k: 'name', l: 'Nama Lengkap', req: true },
-        { k: 'position', l: 'Jabatan', req: true },
-        { k: 'description', l: 'Deskripsi / Bio', type: 'textarea' },
-        { k: 'order', l: 'Urutan', def: '1' },
-        { k: 'is_active', l: 'Aktif', type: 'checkbox', def: true }
-      ]
-    },
     partners: {
       title: 'Partners', key: 'partnerRecords', toggleKey: 'is_active',
       cols: [['name', 'Nama Partner'], ['website', 'Website'], ['order', 'Urutan'], ['is_active', 'Status']],
@@ -202,20 +191,6 @@
       ],
       afterSave: function (db) { db.partners = db.partnerRecords.filter(function (p) { return p.is_active; }).map(function (p) { return p.name; }); }
     },
-    'job-positions': {
-      title: 'Job Positions', key: 'jobPositions', toggleKey: 'is_active',
-      cols: [['title', 'Posisi'], ['department', 'Departemen'], ['type', 'Tipe'], ['location', 'Lokasi'], ['is_active', 'Status']],
-      fields: [
-        { k: 'title', l: 'Judul Posisi', req: true },
-        { k: 'department', l: 'Departemen', req: true, def: 'Technical' },
-        { k: 'type', l: 'Tipe Kerja', def: 'Full Time' },
-        { k: 'location', l: 'Lokasi', def: 'Surabaya' },
-        { k: 'positions_available', l: 'Jumlah Kebutuhan', def: '1' },
-        { k: 'description', l: 'Deskripsi Pekerjaan', type: 'textarea', req: true },
-        { k: 'is_active', l: 'Aktif', type: 'checkbox', def: true }
-      ],
-      beforeSave: function (item) { if (!item.slug) item.slug = slugify(item.title); }
-    }
   };
 
   function openResourceShow(route, id) {
@@ -309,6 +284,7 @@
     var existing = id != null ? db[cfg.key].filter(function (x) { return String(x.id) === String(id); })[0] : null;
     var html = '<form class="form" id="res-form">' + cfg.fields.map(function (f) {
       var val = existing ? existing[f.k] : (f.def !== undefined ? f.def : '');
+      if (Array.isArray(val)) val = val.join('\n');
       if (f.type === 'image') {
         return '<div class="field"><label>' + esc(f.l) + '</label><div class="img-up">' +
           '<input type="hidden" name="' + f.k + '" value="' + esc(val || '') + '">' +
@@ -368,6 +344,35 @@
     };
   }
 
+  /* Drag-and-drop row reorder with pointer events: mouse, pen and touch (iPad). */
+  function bindDrag(tbody, onDone) {
+    $$('.grip', tbody).forEach(function (g) {
+      g.onpointerdown = function (e) {
+        e.preventDefault();
+        var row = g.closest('tr');
+        row.classList.add('dragging');
+        var move = function (ev) {
+          var over = document.elementFromPoint(ev.clientX, ev.clientY);
+          var tr = over && over.closest('tr');
+          if (!tr || tr === row || tr.parentNode !== tbody) return;
+          var r = tr.getBoundingClientRect();
+          tbody.insertBefore(row, ev.clientY < r.top + r.height / 2 ? tr : tr.nextSibling);
+        };
+        var up = function (ev) {
+          move(ev); // a fast drag may deliver no pointermove before pointerup
+          document.removeEventListener('pointermove', move);
+          document.removeEventListener('pointerup', up);
+          document.removeEventListener('pointercancel', up);
+          row.classList.remove('dragging');
+          onDone($$('tr[data-id]', tbody).map(function (t) { return t.dataset.id; }));
+        };
+        document.addEventListener('pointermove', move);
+        document.addEventListener('pointerup', up);
+        document.addEventListener('pointercancel', up);
+      };
+    });
+  }
+
   function renderCrud(route) {
     var cfg = RESOURCES[route];
     var db = window.KMStore.get();
@@ -377,13 +382,15 @@
 
     var query = '';
     function drawTable() {
-      var list = window.KMStore.get()[cfg.key] || [];
+      var list = (window.KMStore.get()[cfg.key] || []).slice();
+      if (cfg.sortable) list.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+      var drag = cfg.sortable && !query;
       var filtered = list.filter(function (row) {
         if (!query) return true;
         return JSON.stringify(row).toLowerCase().indexOf(query) >= 0;
       });
       $('#crud-rows').innerHTML = filtered.length ? filtered.map(function (row) {
-        return '<tr>' + cfg.cols.map(function (c) {
+        return '<tr data-id="' + row.id + '">' + (cfg.sortable ? '<td>' + (drag ? '<span class="grip" title="Seret untuk mengatur urutan" aria-label="Seret untuk mengatur urutan">&#10303;</span>' : '') + '</td>' : '') + cfg.cols.map(function (c) {
           var v = row[c[0]];
           return '<td>' + (typeof v === 'boolean' ? statusPill(v) : esc(v == null ? '-' : String(v).slice(0, 72))) + '</td>';
         }).join('') +
@@ -393,8 +400,14 @@
         (cfg.toggleKey ? '<button class="btn outline sm" data-tog="' + row.id + '" type="button">Toggle</button>' : '') +
         '<button class="btn danger sm" data-del="' + row.id + '" type="button">Hapus</button>' +
         '</div></td></tr>';
-      }).join('') : '<tr><td colspan="' + (cfg.cols.length + 1) + '" style="text-align:center;color:var(--ink-3);padding:28px">Tidak ada data.</td></tr>';
+      }).join('') : '<tr><td colspan="' + (cfg.cols.length + 2) + '" style="text-align:center;color:var(--ink-3);padding:28px">Tidak ada data.</td></tr>';
 
+      if (drag) bindDrag($('#crud-rows'), function (ids) {
+        var d = window.KMStore.get();
+        d[cfg.key].forEach(function (x) { x.order = ids.indexOf(String(x.id)) + 1; });
+        window.KMStore.save(d);
+        toast('Urutan produk disimpan.');
+      });
       $$('[data-show]').forEach(function (b) { b.onclick = function () { openResourceShow(route, b.dataset.show); }; });
       $$('[data-edit]').forEach(function (b) { b.onclick = function () { openResourceForm(route, b.dataset.edit); }; });
       $$('[data-tog]').forEach(function (b) {
@@ -421,7 +434,7 @@
     }
 
     $('#view').innerHTML = '<div class="panel"><div class="panel-head"><h2>Daftar ' + esc(cfg.title) + ' (' + db[cfg.key].length + ')</h2><input class="search" id="crud-search" type="search" placeholder="Cari data..."></div>' +
-      '<div class="tbl-wrap"><table><thead><tr>' + cfg.cols.map(function (c) { return '<th>' + esc(c[1]) + '</th>'; }).join('') + '<th>Aksi</th></tr></thead><tbody id="crud-rows"></tbody></table></div></div>';
+      (cfg.sortable ? '<p class="hint">Seret ikon &#10303; untuk mengatur urutan tampil di website (nonaktif saat pencarian).</p>' : '') + '<div class="tbl-wrap"><table><thead><tr>' + (cfg.sortable ? '<th></th>' : '') + cfg.cols.map(function (c) { return '<th>' + esc(c[1]) + '</th>'; }).join('') + '<th>Aksi</th></tr></thead><tbody id="crud-rows"></tbody></table></div></div>';
     $('#crud-search').oninput = function (e) { query = e.target.value.trim().toLowerCase(); drawTable(); };
     drawTable();
   }
@@ -431,25 +444,12 @@
     var db = window.KMStore.get();
     $('#page-title').textContent = 'Dashboard';
     $('#topbar-actions').innerHTML = '<a class="btn outline" href="../index.html">Buka Website &rarr;</a>';
-    var newContacts = db.contacts.filter(function (c) { return c.status === 'new'; }).length;
-    var pendingApps = db.jobApplications.filter(function (a) { return a.status === 'pending'; }).length;
-
     $('#view').innerHTML =
       '<div class="kpi-grid">' +
       '<div class="kpi"><span>Total Produk</span><b>' + db.products.length + '</b><small>' + db.products.filter(function (x) { return x.is_active; }).length + ' aktif</small></div>' +
       '<div class="kpi"><span>Portofolio</span><b>' + db.portfolios.length + '</b><small>' + db.portfolios.filter(function (x) { return x.is_featured; }).length + ' featured</small></div>' +
       '<div class="kpi"><span>Blog Posts</span><b>' + db.blogPosts.length + '</b><small>' + db.blogPosts.filter(function (x) { return x.is_published; }).length + ' published</small></div>' +
       '<div class="kpi"><span>Newsletter</span><b>' + db.newsletters.length + '</b><small>subscribers</small></div>' +
-      '<div class="kpi"><span>Pesan Baru</span><b>' + newContacts + '</b><small>' + db.contacts.length + ' total</small></div>' +
-      '<div class="kpi"><span>Lamaran Pending</span><b>' + pendingApps + '</b><small>' + db.jobApplications.length + ' total</small></div>' +
-      '</div>' +
-      '<div class="dash-split">' +
-      '<div class="panel"><div class="panel-head"><h2>Pesan Kontak Terbaru</h2><a class="btn outline sm" href="#contacts">Lihat Semua</a></div><div class="tbl-wrap"><table><thead><tr><th>Nama</th><th>Subjek</th><th>Status</th></tr></thead><tbody>' +
-      db.contacts.slice(0, 5).map(function (c) { return '<tr><td>' + esc(c.name) + '</td><td>' + esc(c.subject) + '</td><td>' + statusPill(c.status) + '</td></tr>'; }).join('') +
-      '</tbody></table></div></div>' +
-      '<div class="panel"><div class="panel-head"><h2>Lamaran Kerja Terbaru</h2><a class="btn outline sm" href="#job-applications">Lihat Semua</a></div><div class="tbl-wrap"><table><thead><tr><th>Nama</th><th>Posisi</th><th>Status</th></tr></thead><tbody>' +
-      db.jobApplications.slice(0, 5).map(function (a) { return '<tr><td>' + esc(a.full_name) + '</td><td>' + esc(a.position) + '</td><td>' + statusPill(a.status) + '</td></tr>'; }).join('') +
-      '</tbody></table></div></div>' +
       '</div>';
   }
 
@@ -474,72 +474,6 @@
       window.KMStore.save(db);
       toast('Profil About Us berhasil diperbarui.');
     };
-  }
-
-  function renderContacts() {
-    var db = window.KMStore.get();
-    $('#page-title').textContent = 'Contacts Inbox';
-    $('#topbar-actions').innerHTML = '';
-    $('#view').innerHTML = '<div class="panel"><div class="panel-head"><h2>Pesan Masuk (' + db.contacts.length + ')</h2></div><div class="tbl-wrap"><table><thead><tr><th>Nama</th><th>Email</th><th>Subjek</th><th>Status</th><th>Aksi</th></tr></thead><tbody>' +
-      db.contacts.map(function (c) {
-        return '<tr><td>' + esc(c.name) + '</td><td>' + esc(c.email) + '</td><td>' + esc(c.subject) + '</td><td>' + statusPill(c.status) + '</td><td><div class="actions">' +
-          '<button class="btn outline sm" data-cview="' + c.id + '" type="button">Detail</button>' +
-          '<button class="btn danger sm" data-cdel="' + c.id + '" type="button">Hapus</button></div></td></tr>';
-      }).join('') + '</tbody></table></div></div>';
-
-    $$('[data-cview]').forEach(function (b) {
-      b.onclick = function () {
-        var c = db.contacts.filter(function (x) { return String(x.id) === String(b.dataset.cview); })[0];
-        if (!c) return;
-        openDrawer('Detail Pesan',
-          '<dl class="kv"><div><dt>Pengirim</dt><dd>' + esc(c.name) + ' (' + esc(c.email) + ')</dd></div>' +
-          '<div><dt>Telepon</dt><dd>' + esc(c.phone || '-') + '</dd></div>' +
-          '<div><dt>Subjek</dt><dd>' + esc(c.subject) + '</dd></div>' +
-          '<div><dt>Pesan</dt><dd>' + esc(c.message) + '</dd></div>' +
-          '<div><dt>Status</dt><dd>' + statusPill(c.status) + '</dd></div></dl>',
-          '<button class="btn outline" type="button" id="cm-read">Tandai Dibaca</button><button class="btn" type="button" id="cm-rep">Tandai Dibalas</button>'
-        );
-        $('#cm-read').onclick = function () { c.status = 'read'; window.KMStore.save(db); closeDrawer(); toast('Ditandai dibaca.'); render(); };
-        $('#cm-rep').onclick = function () { c.status = 'replied'; window.KMStore.save(db); closeDrawer(); toast('Ditandai dibalas.'); render(); };
-      };
-    });
-    $$('[data-cdel]').forEach(function (b) {
-      b.onclick = function () { db.contacts = db.contacts.filter(function (x) { return String(x.id) !== String(b.dataset.cdel); }); window.KMStore.save(db); toast('Pesan dihapus.'); render(); };
-    });
-  }
-
-  function renderJobApps() {
-    var db = window.KMStore.get();
-    $('#page-title').textContent = 'Job Applications';
-    $('#topbar-actions').innerHTML = '';
-    $('#view').innerHTML = '<div class="panel"><div class="panel-head"><h2>Lamaran Masuk (' + db.jobApplications.length + ')</h2></div><div class="tbl-wrap"><table><thead><tr><th>Pelamar</th><th>Posisi</th><th>Email</th><th>Status</th><th>Aksi</th></tr></thead><tbody>' +
-      db.jobApplications.map(function (a) {
-        return '<tr><td>' + esc(a.full_name) + '</td><td>' + esc(a.position) + '</td><td>' + esc(a.email) + '</td><td>' + statusPill(a.status) + '</td><td><div class="actions">' +
-          '<button class="btn outline sm" data-aview="' + a.id + '" type="button">Detail</button>' +
-          '<button class="btn danger sm" data-adel="' + a.id + '" type="button">Hapus</button></div></td></tr>';
-      }).join('') + '</tbody></table></div></div>';
-
-    $$('[data-aview]').forEach(function (b) {
-      b.onclick = function () {
-        var a = db.jobApplications.filter(function (x) { return String(x.id) === String(b.dataset.aview); })[0];
-        if (!a) return;
-        openDrawer('Detail Lamaran',
-          '<dl class="kv"><div><dt>Pelamar</dt><dd>' + esc(a.full_name) + ' (' + esc(a.email) + ')</dd></div>' +
-          '<div><dt>Posisi</dt><dd>' + esc(a.position) + '</dd></div>' +
-          '<div><dt>Telepon</dt><dd>' + esc(a.phone || '-') + '</dd></div>' +
-          '<div><dt>Pendidikan &amp; Pengalaman</dt><dd>' + esc(a.education || '-') + ' / ' + esc(a.experience || '-') + '</dd></div>' +
-          '<div><dt>Cover Letter</dt><dd>' + esc(a.cover_letter || '-') + '</dd></div></dl>' +
-          '<div class="field" style="margin-top:18px"><label>Ubah Status</label><select id="ja-st">' +
-          ['pending', 'reviewed', 'accepted', 'rejected'].map(function (st) { return '<option value="' + st + '"' + (a.status === st ? ' selected' : '') + '>' + st + '</option>'; }).join('') +
-          '</select></div>',
-          '<button class="btn outline" type="button" id="df-close">Tutup</button><button class="btn" type="button" id="ja-save">Simpan Status</button>'
-        );
-        $('#ja-save').onclick = function () { a.status = $('#ja-st').value; window.KMStore.save(db); closeDrawer(); toast('Status lamaran diperbarui.'); render(); };
-      };
-    });
-    $$('[data-adel]').forEach(function (b) {
-      b.onclick = function () { db.jobApplications = db.jobApplications.filter(function (x) { return String(x.id) !== String(b.dataset.adel); }); window.KMStore.save(db); toast('Lamaran dihapus.'); render(); };
-    });
   }
 
   function renderNewsletters() {
@@ -569,7 +503,8 @@
   function renderSettings() {
     var db = window.KMStore.get();
     var S = db.site;
-    var docs = db.documents || {};
+    var files = (db.documents || {}).files || {};
+    var pdfSlots = [['profile', 'Company Profile']].concat(db.sections.map(function (x) { return [x[0], 'Katalog ' + x[1]]; }));
     var seo = db.seo || {};
     $('#page-title').textContent = 'Site Settings';
     $('#topbar-actions').innerHTML = '';
@@ -579,12 +514,12 @@
       '<div class="frow"><div class="field"><label>WhatsApp (628...)</label><input name="wa" value="' + esc(S.wa) + '"></div><div class="field"><label>Domain</label><input name="domain" value="' + esc(S.domain) + '"></div></div>' +
       '<div class="field"><label>Alamat Lengkap</label><textarea name="address">' + esc(S.address) + '</textarea></div>' +
       '<div class="frow"><div class="field"><label>Jam Operasional (Senin-Jumat)</label><input name="hours" value="' + esc(S.hours) + '"></div><div class="field"><label>Jam Operasional (Sabtu-Minggu, 1 baris)</label><input name="hoursWeekend" value="' + esc(S.hoursWeekend) + '"></div></div>' +
-      '<div class="frow"><div class="field"><label>Instagram URL</label><input name="instagram" value="' + esc(S.instagram) + '"></div><div class="field"><label>Linktree URL</label><input name="linktree" value="' + esc(S.linktree) + '"></div></div>' +
-      '<div style="border-top:1px solid var(--line);padding-top:16px;margin-top:6px"><b style="font-size:14px">Dokumen PDF (Download Katalog &amp; Company Profile)</b></div>' +
-      '<div class="frow">' +
-      '<div class="field"><label>URL / File PDF Katalog</label><input name="catalogPdf" value="' + esc(docs.catalogPdf || '') + '" placeholder="https://... atau unggah PDF di bawah"><input type="file" accept="application/pdf" id="pdf-cat-up" style="margin-top:6px"></div>' +
-      '<div class="field"><label>URL / File PDF Company Profile</label><input name="companyProfilePdf" value="' + esc(docs.companyProfilePdf || '') + '" placeholder="https://... atau unggah PDF di bawah"><input type="file" accept="application/pdf" id="pdf-prof-up" style="margin-top:6px"></div>' +
-      '</div>' +
+      '<div class="frow"><div class="field"><label>Facebook URL</label><input name="facebook" value="' + esc(S.facebook) + '"></div><div class="field"><label>TikTok URL</label><input name="tiktok" value="' + esc(S.tiktok) + '"></div><div class="field"><label>Linktree URL</label><input name="linktree" value="' + esc(S.linktree) + '"></div></div>' +
+      '<div style="border-top:1px solid var(--line);padding-top:16px;margin-top:6px"><b style="font-size:14px">Dokumen PDF (Company Profile &amp; Katalog per Kategori)</b></div>' +
+      pdfSlots.map(function (x) {
+        var f = files[x[0]] || {};
+        return '<div class="field"><label>PDF ' + esc(x[1]) + (f.name ? ' (' + esc(f.name) + ')' : '') + '</label><input name="pdf_' + esc(x[0]) + '" value="' + esc(f.url || '') + '" placeholder="https://... atau unggah PDF di bawah"><input type="file" accept="application/pdf" data-pdf-up="' + esc(x[0]) + '" style="margin-top:6px"></div>';
+      }).join('') +
       '<div style="border-top:1px solid var(--line);padding-top:16px;margin-top:6px"><b style="font-size:14px">SEO Backend (Hanya di Meta Tag &lt;head&gt;, Tidak Tampil di Halaman)</b></div>' +
       '<div class="field"><label>Meta Title</label><input name="metaTitle" value="' + esc(seo.metaTitle || '') + '"></div>' +
       '<div class="field"><label>Meta Description</label><textarea name="metaDescription">' + esc(seo.metaDescription || '') + '</textarea></div>' +
@@ -592,32 +527,30 @@
       '<div><button class="btn" type="submit">Simpan Pengaturan</button></div>' +
       '</form></div></div>';
 
-    function bindPdf(inpId, fieldName, nameKey) {
-      var el = $('#' + inpId);
-      if (!el) return;
+    var pdfNames = {};
+    $$('[data-pdf-up]').forEach(function (el) {
       el.onchange = function () {
         var f = el.files && el.files[0]; if (!f) return;
         var fr = new FileReader();
         fr.onload = function () {
-          $('#set-form').elements[fieldName].value = fr.result;
-          db.documents = db.documents || {};
-          db.documents[nameKey] = f.name;
+          $('#set-form').elements['pdf_' + el.dataset.pdfUp].value = fr.result;
+          pdfNames[el.dataset.pdfUp] = f.name;
           toast('PDF siap disimpan: ' + f.name);
         };
         fr.readAsDataURL(f);
       };
-    }
-    bindPdf('pdf-cat-up', 'catalogPdf', 'catalogPdfName');
-    bindPdf('pdf-prof-up', 'companyProfilePdf', 'companyProfilePdfName');
+    });
 
     $('#set-form').onsubmit = function (e) {
       e.preventDefault();
       var fd = new FormData(e.target);
-      ['name', 'tagline', 'email', 'phone', 'wa', 'domain', 'address', 'hours', 'hoursWeekend', 'instagram', 'linktree'].forEach(function (k) { db.site[k] = fd.get(k); });
-      db.documents = Object.assign({}, db.documents || {}, {
-        catalogPdf: fd.get('catalogPdf'),
-        companyProfilePdf: fd.get('companyProfilePdf')
+      ['name', 'tagline', 'email', 'phone', 'wa', 'domain', 'address', 'hours', 'hoursWeekend', 'facebook', 'tiktok', 'linktree'].forEach(function (k) { db.site[k] = fd.get(k); });
+      var nf = {};
+      pdfSlots.forEach(function (x) {
+        var old = files[x[0]] || {};
+        nf[x[0]] = { url: (fd.get('pdf_' + x[0]) || '').trim(), name: pdfNames[x[0]] || old.name || (x[1].replace(/\W+/g, '-') + '.pdf') };
       });
+      db.documents = { files: nf };
       db.seo = {
         metaTitle: fd.get('metaTitle'),
         metaDescription: fd.get('metaDescription'),
@@ -634,8 +567,6 @@
     renderNav(r);
     if (r === 'dashboard') return renderDashboard();
     if (r === 'about') return renderAbout();
-    if (r === 'contacts') return renderContacts();
-    if (r === 'job-applications') return renderJobApps();
     if (r === 'newsletters') return renderNewsletters();
     if (r === 'settings') return renderSettings();
     if (RESOURCES[r]) return renderCrud(r);

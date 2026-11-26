@@ -10,9 +10,9 @@ window.KM_SEED = {
   "wa": "6281353468612",
   "hours": "Senin - Jumat: 08:00 - 17:00 WIB",
   "hoursWeekend": "Sabtu - Minggu: 08:00 - 13:00 WIB (Minggu tutup)",
-  "instagram": "https://instagram.com/karmandofficial",
   "facebook": "https://www.facebook.com/",
-  "linktree": "https://linktr.ee/karmandsby"
+  "linktree": "https://linktr.ee/karmandsby",
+  "tiktok": "https://www.tiktok.com/"
  },
  "sections": [
   [
@@ -168,32 +168,6 @@ window.KM_SEED = {
    "updated_at": "2026-01-16 09:22:57"
   }
  ],
- "managementTeams": [
-  {
-   "id": 1,
-   "name": "Ir. Heru Prasetyo Purnomo",
-   "position": "Direktur Utama",
-   "description": "",
-   "order": 1,
-   "is_active": true
-  },
-  {
-   "id": 2,
-   "name": "Ir. Bambang Suwito Utomo",
-   "position": "Direktur",
-   "description": "",
-   "order": 2,
-   "is_active": true
-  },
-  {
-   "id": 3,
-   "name": "Ir. Muhammad Fauzi",
-   "position": "Komisaris",
-   "description": "",
-   "order": 3,
-   "is_active": true
-  }
- ],
  "products": [
   {
    "id": 1,
@@ -223,7 +197,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-zinc",
    "is_active": true,
    "sort_order": 1,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 1,
+   "highlights": [
+    "Base: Special Resin",
+    "Warna: Perak Aluminium",
+    "Komponen: 1 Komponen"
+   ]
   },
   {
    "id": 2,
@@ -253,7 +233,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
    "sort_order": 2,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 2,
+   "highlights": [
+    "Base: Special resin",
+    "Warna: Perak Aluminium",
+    "Komponen: 1 Komponen"
+   ]
   },
   {
    "id": 3,
@@ -283,7 +269,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
    "sort_order": 3,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 3,
+   "highlights": [
+    "Base: Special resin",
+    "Warna: Perak Aluminium",
+    "Komponen: 1 Komponen"
+   ]
   },
   {
    "id": 4,
@@ -312,7 +304,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-epoxy",
    "is_active": true,
    "sort_order": 4,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 4,
+   "highlights": [
+    "Base: Epoxy 1 Komponen",
+    "Warna: Abu-abu/Grey",
+    "Komponen: 1 Komponen"
+   ]
   },
   {
    "id": 5,
@@ -337,7 +335,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-rustconverter",
    "is_active": true,
    "sort_order": 1,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 5,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Abu-abu susu",
+    "Berat jenis: ±1,01"
+   ]
   },
   {
    "id": 6,
@@ -362,7 +366,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-insulating",
    "is_active": true,
    "sort_order": 2,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 6,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Jernih",
+    "Berat jenis: ±1,0"
+   ]
   },
   {
    "id": 7,
@@ -387,7 +397,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-insulating-red",
    "is_active": true,
    "sort_order": 3,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 7,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Merah",
+    "Berat jenis: ±1,0"
+   ]
   },
   {
    "id": 8,
@@ -411,7 +427,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-drain",
    "is_active": true,
    "sort_order": 4,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 8,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Cokelat",
+    "pH: Asam"
+   ]
   },
   {
    "id": 9,
@@ -436,7 +458,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-contact-cleaner",
    "is_active": true,
    "sort_order": 5,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 9,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Jernih",
+    "Berat jenis: ±0,8"
+   ]
   },
   {
    "id": 10,
@@ -460,7 +488,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-pu",
    "is_active": true,
    "sort_order": 1,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 10,
+   "highlights": [
+    "Bentuk: Liquid",
+    "Warna: Clear",
+    "pH: 0.5 - 8.0"
+   ]
   },
   {
    "id": 11,
@@ -486,7 +520,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-sn01",
    "is_active": true,
    "sort_order": 2,
-   "created_at": "2026-01-16 09:22:58"
+   "created_at": "2026-01-16 09:22:58",
+   "order": 11,
+   "highlights": [
+    "Bentuk: Cair",
+    "Warna: Jernih",
+    "Berat jenis: 0,99"
+   ]
   },
   {
    "id": 12,
@@ -513,7 +553,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
    "sort_order": 1,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 12,
+   "highlights": [
+    "Bentuk: Cairan",
+    "Warna: Jernih",
+    "pH: 12,5 – 13,5 (Concentrate)"
+   ]
   },
   {
    "id": 13,
@@ -540,7 +586,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
    "sort_order": 2,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 13,
+   "highlights": [
+    "Bentuk: Cairan",
+    "Warna: Jernih",
+    "pH: 12,5 – 13,5 (Concentrate)"
+   ]
   },
   {
    "id": 14,
@@ -565,7 +617,13 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-ctt1000",
    "is_active": true,
    "sort_order": 3,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 14,
+   "highlights": [
+    "Bentuk: Cairan",
+    "Warna: Bening",
+    "Berat jenis: 1,25 - 1,30"
+   ]
   },
   {
    "id": 15,
@@ -585,7 +643,9 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-frptank",
    "is_active": true,
    "sort_order": 1,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 15,
+   "highlights": []
   },
   {
    "id": 16,
@@ -605,7 +665,9 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-frppipe",
    "is_active": true,
    "sort_order": 2,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 16,
+   "highlights": []
   },
   {
    "id": 17,
@@ -625,7 +687,9 @@ window.KM_SEED = {
    "shopee_link": "https://shopee.co.id/karmand-scrubber",
    "is_active": true,
    "sort_order": 3,
-   "created_at": "2026-01-16 09:22:57"
+   "created_at": "2026-01-16 09:22:57",
+   "order": 17,
+   "highlights": []
   }
  ],
  "preventionExposures": [
@@ -1162,402 +1226,6 @@ window.KM_SEED = {
    "views": 176
   }
  ],
- "jobPositions": [
-  {
-   "id": 1,
-   "title": "Sales Engineer - Chemical Products",
-   "slug": "sales-engineer-chemical-products",
-   "department": "sales",
-   "type": "Full Time",
-   "location": "Jakarta / Surabaya",
-   "description": "Mencari sales engineer berpengalaman untuk menangani penjualan produk kimia industri. Kandidat ideal memiliki technical knowledge di bidang coating atau water treatment.",
-   "requirements": [
-    "Minimal S1 Teknik Kimia/Mesin atau setara",
-    "Pengalaman 2+ tahun di sales industrial chemical",
-    "Memiliki SIM A dan kendaraan",
-    "Kemampuan komunikasi dan presentasi excellent",
-    "Bersedia melakukan perjalanan dinas"
-   ],
-   "positions_available": 2,
-   "is_active": true,
-   "deadline": "2027-01-21 12:38:36"
-  },
-  {
-   "id": 2,
-   "title": "Marketing Manager",
-   "slug": "marketing-manager",
-   "department": "sales",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Mengembangkan dan mengimplementasikan strategi marketing, branding, dan digital marketing untuk meningkatkan market presence perusahaan.",
-   "requirements": [
-    "S1 Marketing/Communication/Business",
-    "Pengalaman 5+ tahun di marketing B2B",
-    "Strong digital marketing knowledge",
-    "Strategic thinking dan creative",
-    "Memahami industri kimia menjadi nilai plus"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 3,
-   "title": "Business Development Manager",
-   "slug": "business-development-manager",
-   "department": "sales",
-   "type": "Full Time",
-   "location": "Jakarta / Surabaya",
-   "description": "Mengidentifikasi peluang bisnis baru, mengembangkan strategic partnerships, dan expanding market share di industri kimia.",
-   "requirements": [
-    "S1 semua jurusan, preferably technical background",
-    "Pengalaman 5+ tahun di business development",
-    "Strong networking dan negotiation skills",
-    "Strategic thinking dan market knowledge",
-    "Fluent in English"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2027-01-21 12:38:36"
-  },
-  {
-   "id": 4,
-   "title": "Technical Service Engineer",
-   "slug": "technical-service-engineer",
-   "department": "technical",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Bertanggung jawab memberikan technical support kepada customer, troubleshooting, dan aplikasi produk water treatment dan coating di lapangan.",
-   "requirements": [
-    "S1 Teknik Kimia/Lingkungan",
-    "Memahami water treatment dan coating application",
-    "Bersedia melakukan perjalanan dinas",
-    "Problem solving dan analytical thinking kuat",
-    "Fresh graduate dengan passion di bidang ini dipersilakan"
-   ],
-   "positions_available": 2,
-   "is_active": true,
-   "deadline": "2027-02-21 12:38:36"
-  },
-  {
-   "id": 5,
-   "title": "Quality Control Chemist",
-   "slug": "quality-control-chemist",
-   "department": "technical",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Melakukan quality control dan testing produk kimia, memastikan produk memenuhi spesifikasi dan standar kualitas yang ditetapkan.",
-   "requirements": [
-    "S1 Kimia/Teknik Kimia",
-    "Pengalaman di laboratorium kimia industri",
-    "Familiar dengan analytical instruments (HPLC, GC, Spectrophotometer)",
-    "Detail oriented dan teliti",
-    "Memahami ISO 9001 dan GMP"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 6,
-   "title": "R&D Chemist",
-   "slug": "rd-chemist",
-   "department": "technical",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Melakukan riset dan pengembangan produk kimia baru, improvement formula existing products, dan testing performance produk.",
-   "requirements": [
-    "S1/S2 Kimia/Teknik Kimia",
-    "Pengalaman di R&D chemical products min 2 tahun",
-    "Analytical dan research skills",
-    "Innovative dan detail oriented",
-    "Familiar dengan coating/water treatment chemistry"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2027-01-21 12:38:36"
-  },
-  {
-   "id": 7,
-   "title": "Warehouse & Logistics Supervisor",
-   "slug": "warehouse-logistics-supervisor",
-   "department": "operations",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Mengelola operasional gudang, inventory management, dan koordinasi pengiriman produk chemical untuk memastikan kelancaran supply chain.",
-   "requirements": [
-    "D3/S1 semua jurusan",
-    "Pengalaman 3+ tahun di warehouse management",
-    "Memahami K3 dan chemical handling",
-    "Leadership dan organizational skills",
-    "Familiar dengan WMS software"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 8,
-   "title": "Production Supervisor",
-   "slug": "production-supervisor",
-   "department": "operations",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Mengawasi proses produksi chemical products, memastikan safety procedures, quality control, dan target produksi tercapai.",
-   "requirements": [
-    "S1 Teknik Kimia/Industri",
-    "Pengalaman 3+ tahun di chemical production",
-    "Memahami GMP dan K3",
-    "Leadership dan problem solving skills",
-    "Bersedia bekerja shift"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2027-01-21 12:38:36"
-  },
-  {
-   "id": 9,
-   "title": "Accounting Staff",
-   "slug": "accounting-staff",
-   "department": "admin",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Menangani proses accounting, laporan keuangan, dan administrasi keuangan perusahaan dengan sistem yang terstruktur dan akurat.",
-   "requirements": [
-    "S1 Akuntansi/Finance",
-    "Familiar dengan software accounting (Accurate, SAP, atau sejenisnya)",
-    "Memahami perpajakan",
-    "Teliti dan detail oriented",
-    "Pengalaman minimal 1 tahun di bidang accounting"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 10,
-   "title": "HR & GA Officer",
-   "slug": "hr-ga-officer",
-   "department": "admin",
-   "type": "Full Time",
-   "location": "Jakarta",
-   "description": "Mengelola aktivitas HR dan General Affairs perusahaan termasuk recruitment, payroll, employee relations, dan administrasi kantor.",
-   "requirements": [
-    "S1 Psikologi/Manajemen/HR",
-    "Pengalaman 2+ tahun di HR & GA",
-    "Memahami employment law dan BPJS",
-    "Good interpersonal dan communication skills",
-    "Familiar dengan HRIS system"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 11,
-   "title": "Technical Intern - Quality Control",
-   "slug": "technical-intern-quality-control",
-   "department": "technical",
-   "type": "Internship",
-   "location": "Jakarta",
-   "description": "Program magang untuk mahasiswa/fresh graduate di bidang Quality Control. Kesempatan untuk belajar tentang quality testing, chemical analysis, dan laboratory procedures.",
-   "requirements": [
-    "Mahasiswa semester akhir atau fresh graduate",
-    "Jurusan Kimia/Teknik Kimia",
-    "Motivated dan eager to learn",
-    "Mampu bekerja dalam tim",
-    "Tersedia untuk minimal 3 bulan"
-   ],
-   "positions_available": 2,
-   "is_active": true,
-   "deadline": "2026-12-21 12:38:36"
-  },
-  {
-   "id": 12,
-   "title": "Marketing Intern",
-   "slug": "marketing-intern",
-   "department": "sales",
-   "type": "Internship",
-   "location": "Jakarta",
-   "description": "Program magang di digital marketing dan content creation. Belajar tentang B2B marketing strategy, social media management, dan content development.",
-   "requirements": [
-    "Mahasiswa semester akhir atau fresh graduate",
-    "Jurusan Marketing/Communication/DKV",
-    "Familiar dengan social media dan design tools",
-    "Creative dan detail oriented",
-    "Portfolio menjadi nilai plus"
-   ],
-   "positions_available": 1,
-   "is_active": true,
-   "deadline": "2026-12-12 12:38:36"
-  }
- ],
- "contacts": [
-  {
-   "id": 1,
-   "name": "Budi Santoso",
-   "email": "budi.santoso@example.com",
-   "phone": "081234567801",
-   "subject": "Permintaan penawaran Cold Galvanize",
-   "message": "Selamat siang, kami membutuhkan penawaran Cold Galvanize K 404 CG kemasan pail 20 kg sebanyak 50 pail untuk proyek tiang PJU.",
-   "status": "new",
-   "created_at": "2026-11-14 09:12:00",
-   "updated_at": "2026-11-14 09:12:00"
-  },
-  {
-   "id": 2,
-   "name": "Siti Rahayu",
-   "email": "siti.rahayu@example.com",
-   "phone": "081234567802",
-   "subject": "Konsultasi water treatment boiler",
-   "message": "Kami mengalami masalah scale pada boiler 5 ton/jam. Mohon dijadwalkan kunjungan teknis.",
-   "status": "new",
-   "created_at": "2026-11-13 14:40:00",
-   "updated_at": "2026-11-13 14:40:00"
-  },
-  {
-   "id": 3,
-   "name": "Agus Wijaya",
-   "email": "agus.wijaya@example.com",
-   "phone": "",
-   "subject": "Katalog produk",
-   "message": "Mohon dikirimkan katalog lengkap produk chemical maintenance.",
-   "status": "read",
-   "created_at": "2026-11-10 10:05:00",
-   "updated_at": "2026-11-11 08:00:00"
-  },
-  {
-   "id": 4,
-   "name": "Dewi Lestari",
-   "email": "dewi.lestari@example.com",
-   "phone": "081234567804",
-   "subject": "Fabrikasi tangki FRP",
-   "message": "Kami ingin menanyakan estimasi biaya dan waktu fabrikasi tangki FRP kapasitas 10 m3.",
-   "status": "replied",
-   "created_at": "2026-11-05 16:20:00",
-   "updated_at": "2026-11-06 09:30:00"
-  },
-  {
-   "id": 5,
-   "name": "Rudi Hartono",
-   "email": "rudi.hartono@example.com",
-   "phone": "081234567805",
-   "subject": "Kerja sama distributor",
-   "message": "Kami perusahaan distributor di Semarang dan tertarik menjadi reseller produk Karmand.",
-   "status": "read",
-   "created_at": "2026-11-02 11:15:00",
-   "updated_at": "2026-11-02 13:00:00"
-  },
-  {
-   "id": 6,
-   "name": "Maya Putri",
-   "email": "maya.putri@example.com",
-   "phone": "081234567806",
-   "subject": "Harga Karmand Thinner CG",
-   "message": "Apakah Karmand Thinner CG tersedia ready stock? Mohon info harga per liter.",
-   "status": "replied",
-   "created_at": "2026-10-28 08:50:00",
-   "updated_at": "2026-10-29 10:10:00"
-  }
- ],
- "jobApplications": [
-  {
-   "id": 1,
-   "position": "Sales Engineer - Chemical Products",
-   "job_position_id": 1,
-   "full_name": "Andi Pratama",
-   "email": "andi.pratama@example.com",
-   "phone": "081300000001",
-   "education": "S1 Teknik Kimia",
-   "experience": 3,
-   "cover_letter": "Saya tertarik dengan posisi Sales Engineer - Chemical Products dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000000_andi-pratama.pdf",
-   "status": "pending",
-   "notes": null,
-   "created_at": "2026-11-15 08:00:00",
-   "updated_at": "2026-11-15 08:00:00"
-  },
-  {
-   "id": 2,
-   "position": "Marketing Manager",
-   "job_position_id": 2,
-   "full_name": "Rina Kusuma",
-   "email": "rina.kusuma@example.com",
-   "phone": "081300000002",
-   "education": "S1 Teknik Mesin",
-   "experience": 5,
-   "cover_letter": "Saya tertarik dengan posisi Marketing Manager dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000001_rina-kusuma.pdf",
-   "status": "reviewed",
-   "notes": null,
-   "created_at": "2026-11-12 13:30:00",
-   "updated_at": "2026-11-12 13:30:00"
-  },
-  {
-   "id": 3,
-   "position": "Business Development Manager",
-   "job_position_id": 3,
-   "full_name": "Dimas Saputra",
-   "email": "dimas.saputra@example.com",
-   "phone": "081300000003",
-   "education": "D3 Teknik Kimia",
-   "experience": 1,
-   "cover_letter": "Saya tertarik dengan posisi Business Development Manager dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000002_dimas-saputra.pdf",
-   "status": "pending",
-   "notes": null,
-   "created_at": "2026-11-11 09:45:00",
-   "updated_at": "2026-11-11 09:45:00"
-  },
-  {
-   "id": 4,
-   "position": "Technical Service Engineer",
-   "job_position_id": 4,
-   "full_name": "Lia Anggraini",
-   "email": "lia.anggraini@example.com",
-   "phone": "081300000004",
-   "education": "S1 Manajemen",
-   "experience": 4,
-   "cover_letter": "Saya tertarik dengan posisi Technical Service Engineer dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000003_lia-anggraini.pdf",
-   "status": "accepted",
-   "notes": null,
-   "created_at": "2026-11-03 15:10:00",
-   "updated_at": "2026-11-03 15:10:00"
-  },
-  {
-   "id": 5,
-   "position": "Sales Engineer - Chemical Products",
-   "job_position_id": 1,
-   "full_name": "Fajar Nugroho",
-   "email": "fajar.nugroho@example.com",
-   "phone": "081300000005",
-   "education": "SMK Kimia Industri",
-   "experience": 2,
-   "cover_letter": "Saya tertarik dengan posisi Sales Engineer - Chemical Products dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000004_fajar-nugroho.pdf",
-   "status": "rejected",
-   "notes": null,
-   "created_at": "2026-10-30 10:00:00",
-   "updated_at": "2026-10-30 10:00:00"
-  },
-  {
-   "id": 6,
-   "position": "Marketing Manager",
-   "job_position_id": 2,
-   "full_name": "Putri Ayu",
-   "email": "putri.ayu@example.com",
-   "phone": "081300000006",
-   "education": "S1 Teknik Lingkungan",
-   "experience": 0,
-   "cover_letter": "Saya tertarik dengan posisi Marketing Manager dan siap berkontribusi untuk PT Karmand Mitra Andalan.",
-   "cv_path": "cv/1760000005_putri-ayu.pdf",
-   "status": "interview",
-   "notes": null,
-   "created_at": "2026-10-27 11:20:00",
-   "updated_at": "2026-10-27 11:20:00"
-  }
- ],
  "newsletters": [
   {
    "id": 1,
@@ -1795,10 +1463,32 @@ window.KM_SEED = {
   }
  ],
  "documents": {
-  "catalogPdf": "",
-  "catalogPdfName": "Katalog-Produk-Karmand.pdf",
-  "companyProfilePdf": "",
-  "companyProfilePdfName": "Company-Profile-Karmand.pdf"
+  "files": {
+   "profile": {
+    "url": "",
+    "name": "Company-Profile-Karmand.pdf"
+   },
+   "cold-galvanize": {
+    "url": "",
+    "name": "Katalog-Cold-Galvanize-Coating.pdf"
+   },
+   "chemical-maintenance": {
+    "url": "",
+    "name": "Katalog-Chemical-Maintenance.pdf"
+   },
+   "water-treatment": {
+    "url": "",
+    "name": "Katalog-Chemical-Water-Treatment.pdf"
+   },
+   "frp": {
+    "url": "",
+    "name": "Katalog-FRP-Rubber-Lining.pdf"
+   },
+   "auxiliaries": {
+    "url": "",
+    "name": "Katalog-Chemical-Auxiliaries.pdf"
+   }
+  }
  },
  "seo": {
   "metaTitle": "PT Karmand Mitra Andalan | Cold Galvanize, FRP, Chemical & Industrial Solutions",
@@ -1808,7 +1498,7 @@ window.KM_SEED = {
 };
 
 (function () {
-  var KEY = "km_mockup_v2_db_2";
+  var KEY = "km_mockup_v2_db_3";
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
   function load() {
     try {
