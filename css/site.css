@@ -232,14 +232,23 @@ ul{list-style:none}
 
 /* Tentang Kami: 2/3 text, 1/3 company profile preview slider */
 #tentang{scroll-margin-top:72px}
-.about2{display:grid;grid-template-columns:2fr 1fr;gap:48px;align-items:center}
-.about2 p{color:var(--ink-2);font-size:15px;line-height:1.75;margin-bottom:14px}
-.about2 .lead{font-size:24px;font-weight:300;line-height:1.45;color:var(--ink)}
-.cp{background:#fff;border:1px solid var(--line);border-radius:var(--r-img);padding:16px}
-.cp .pg{aspect-ratio:1/1.414;background:var(--p8);display:grid;place-items:center;color:var(--p1);font-size:13px;letter-spacing:.06em;text-align:center}
-.cp .ctl{display:flex;justify-content:space-between;align-items:center;margin:12px 0;font-size:12px;color:var(--ink-3)}
-.cp .ctl button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:16px;color:var(--p1)}
-.cp .ctl button:hover{border-color:var(--p1)}
+.about2{display:grid;grid-template-columns:2fr 1fr;gap:56px;align-items:stretch}
+.atext{display:flex;flex-direction:column;gap:22px}
+.atext .eyebrow{color:var(--p3);font-weight:600}
+.about2 .lead{font-size:40px;font-weight:300;line-height:1.18;letter-spacing:-.02em;color:var(--p1)}
+.about2 .lead em{font-style:normal;font-weight:600;color:var(--p3)}
+.acols{column-count:2;column-gap:32px}
+.acols p{color:var(--ink-2);font-size:15px;line-height:1.75;margin-bottom:12px;break-inside:avoid}
+.vm{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:auto}
+.vm div{background:#fff;border-left:3px solid var(--p5);padding:16px 18px}
+.vm b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--p3);margin-bottom:6px}
+.vm p{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.cp{background:#fff;border:1px solid var(--line);border-radius:var(--r-img);padding:14px;display:flex;flex-direction:column;gap:12px}
+.cp .pg{position:relative;flex:1;min-height:320px;background:var(--p8);display:grid;place-items:center;color:var(--p1);font-size:13px;letter-spacing:.06em;text-align:center;border-radius:var(--r);user-select:none}
+.cp .pg button{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.85);cursor:pointer;font-size:18px;color:var(--p1)}
+.cp .pg button:hover{background:#fff}
+.cp .nav-l{left:10px}.cp .nav-r{right:10px}
+.cp .pill{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(5,55,78,.75);color:#fff;font-size:11.5px;padding:3px 10px;border-radius:99px}
 .cp .btn{width:100%}
 
 /* page header: cyan band, full bleed */
@@ -275,7 +284,8 @@ ul{list-style:none}
 
 /* footer: navy, white text */
 .ftr{background:var(--p1);color:#fff;margin-top:48px}
-.ftr .cols{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:56px;padding:48px 0 36px}
+.ftr .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;padding:48px 0 36px}
+.ftr .clist{display:flex;flex-wrap:wrap;gap:4px 20px}
 .ftr .cols>*{min-width:0}
 .ftr .logo img{height:32px;margin-bottom:14px}
 .ftr p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7}
@@ -299,7 +309,10 @@ ul{list-style:none}
   .hero{height:440px}
   .slide h1{font-size:28px}
   .about2,.krow{grid-template-columns:1fr}
-  .about2 .lead{font-size:19px}
+  .about2 .lead{font-size:28px}
+  .acols{column-count:1}
+  .vm{grid-template-columns:1fr}
+  .cp .pg{min-height:0;aspect-ratio:1/1.3}
   .krow .cover{aspect-ratio:16/9}
   .krow .act{justify-content:stretch}.krow .act .btn{width:100%}
   .jgrid{grid-template-columns:repeat(2,1fr);gap:14px}

@@ -87,8 +87,8 @@
   var q = encodeURIComponent(S.address);
   var ext = ' target="_blank" rel="noopener"';
   $('#ftr').outerHTML = '<footer class="ftr"><div class="wrap"><div class="cols">' +
-    '<div><div class="logo"><img src="assets/logo-white.png" alt="' + esc(S.name) + '"></div><p>Penyedia solusi kimia industri: cold galvanize, coating, chemical maintenance, water treatment, dan FRP.</p><p style="margin-top:12px">' + esc(S.hours) + '<br>' + esc(S.hoursWeekend) + '</p></div>' +
-    '<div><h4>Kontak</h4><div class="clist"><a href="tel:' + esc(S.phone.replace(/\s/g, '')) + '">' + esc(S.phone) + '</a><a href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a><a href="' + wa() + '"' + ext + '>WhatsApp</a><a href="' + esc(S.facebook) + '"' + ext + '>Facebook</a><a href="' + esc(S.tiktok) + '"' + ext + '>TikTok</a></div></div>' +
+    '<div><div class="logo"><img src="assets/logo-white.png" alt="' + esc(S.name) + '"></div><p>Penyedia solusi kimia industri: cold galvanize, coating, chemical maintenance, water treatment, dan FRP.</p><p style="margin-top:12px">' + esc(S.hours) + '<br>' + esc(S.hoursWeekend) + '</p>' +
+    '<h4 style="margin-top:24px">Kontak</h4><div class="clist"><a href="tel:' + esc(S.phone.replace(/\s/g, '')) + '">' + esc(S.phone) + '</a><a href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a><a href="' + wa() + '"' + ext + '>WhatsApp</a><a href="' + esc(S.facebook) + '"' + ext + '>Facebook</a><a href="' + esc(S.tiktok) + '"' + ext + '>TikTok</a></div></div>' +
     '<div><h4>Lokasi</h4><div class="map"><iframe title="Peta lokasi Karmand" loading="lazy" src="https://www.google.com/maps?q=' + q + '&output=embed"></iframe></div><p>' + esc(S.address) + '</p></div>' +
     '</div><div class="copy"><span>&copy; 2026 ' + esc(S.name) + '</span><span>' + esc(S.domain) + ' &middot; mockup, foto dan dokumen masih placeholder</span></div></div></footer>';
 
@@ -172,12 +172,15 @@
     $('#partners').innerHTML = activePartners.map(function (p) { return '<span>' + esc(p) + '</span>'; }).join('');
     $('#top').innerHTML = prods.slice(0, 6).map(pcard).join('');
     var ab = D.aboutFull || {};
-    $('#about').innerHTML = '<div><p class="lead">' + esc(D.about) + '</p>' + [ab.main_description, ab.secondary_description].filter(Boolean).map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('') + '</div>' +
-      '<div class="cp"><div class="pg" id="cp-pg"></div><div class="ctl"><button type="button" id="cp-prev" aria-label="Halaman sebelumnya">&lsaquo;</button><span id="cp-n"></span><button type="button" id="cp-next" aria-label="Halaman berikutnya">&rsaquo;</button></div>' +
+    $('#about').innerHTML = '<div class="atext"><div class="eyebrow">Tentang Kami &middot; ' + esc(S.tagline) + '</div>' +
+      '<p class="lead">' + esc(D.about).replace('solusi kimia industri', '<em>solusi kimia industri</em>') + '</p>' +
+      '<div class="acols">' + [ab.main_description, ab.secondary_description].filter(Boolean).map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('') + '</div>' +
+      '<div class="vm">' + [['Visi', ab.vision], ['Misi', ab.mission]].filter(function (x) { return x[1]; }).map(function (x) { return '<div><b>' + x[0] + '</b><p>' + esc(x[1]) + '</p></div>'; }).join('') + '</div></div>' +
+      '<div class="cp"><div class="pg" id="cp-pg"><span id="cp-txt"></span><button type="button" class="nav-l" id="cp-prev" aria-label="Halaman sebelumnya">&lsaquo;</button><button type="button" class="nav-r" id="cp-next" aria-label="Halaman berikutnya">&rsaquo;</button><span class="pill" id="cp-n"></span></div>' +
       '<a class="btn" href="#pdf" data-pdf="profile" data-na="File PDF company profile disediakan client">Download Company Profile</a></div>';
     // shortcut: 6 placeholder pages; render real PDF pages (e.g. pdf.js) once the client sends the file
     var cpN = 6, cpI = 0;
-    var cpGo = function (n) { cpI = (n + cpN) % cpN; $('#cp-pg').innerHTML = 'COMPANY PROFILE<br>HALAMAN ' + (cpI + 1); $('#cp-n').textContent = (cpI + 1) + ' / ' + cpN; };
+    var cpGo = function (n) { cpI = (n + cpN) % cpN; $('#cp-txt').innerHTML = 'COMPANY PROFILE<br>HALAMAN ' + (cpI + 1); $('#cp-n').textContent = (cpI + 1) + ' / ' + cpN; };
     $('#cp-prev').onclick = function () { cpGo(cpI - 1); };
     $('#cp-next').onclick = function () { cpGo(cpI + 1); };
     var tx = null;
