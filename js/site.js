@@ -76,9 +76,10 @@
   ];
   var navHtml = menu.map(function (m) {
     var drop = m[0] === 'Produk' ? '<div class="drop"><a href="catalog.html"><span>Semua Produk</span><span class="arrow">&rsaquo;</span></a>' + D.sections.map(function (s) {
-      return '<a href="catalog.html?cat=' + encodeURIComponent(s[0]) + '"><span>' + esc(s[1]) + '</span><span class="arrow">&rsaquo;</span></a>';
+      return '<a href="catalog.html?cat=' + encodeURIComponent(s[0]) + '"' + (page === 'catalog' && qs('cat') === s[0] ? ' class="on"' : '') + '><span>' + esc(s[1]) + '</span><span class="arrow">&rsaquo;</span></a>';
     }).join('') + '</div>' : '';
-    return '<li><a class="top' + (m[2] ? ' on' : '') + '" href="' + m[1] + '"' + (m[2] ? ' aria-current="page"' : '') + '>' + m[0] + '</a>' + drop + '</li>';
+    var dd = drop ? '<button class="dd" type="button" aria-expanded="false" aria-label="Tampilkan kategori ' + m[0] + '">&#9662;</button>' : '';
+    return '<li' + (drop ? ' class="has-drop"' : '') + '><a class="top' + (m[2] ? ' on' : '') + '" href="' + m[1] + '"' + (m[2] ? ' aria-current="page"' : '') + '>' + m[0] + '</a>' + dd + drop + '</li>';
   }).join('');
 
   $('#hdr').outerHTML =
@@ -101,6 +102,7 @@
   setTimeout(function () { var t = $('#tip'); if (t) t.classList.add('hide'); }, 6000);
   $('#bb').onclick = function () { var o = $('#bp').classList.toggle('open'); this.setAttribute('aria-expanded', o); $('#tip').classList.add('hide'); };
   $('.burger').onclick = function () { $('.nav').classList.toggle('open'); };
+  $$('.nav .dd').forEach(function (b) { b.onclick = function () { var o = b.parentNode.classList.toggle('open'); b.setAttribute('aria-expanded', o); }; });
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a'); if (!a) return;

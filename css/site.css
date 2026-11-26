@@ -36,6 +36,7 @@ ul{list-style:none}
 .nav>li:hover .drop,.nav>li:focus-within .drop{display:block}
 .drop a{display:flex;justify-content:space-between;padding:9px 16px;font-size:14px;color:var(--ink-2)}
 .drop a:hover{background:var(--surface);color:var(--ink)}
+.nav .dd{display:none}
 .burger{display:none;background:none;border:0;width:36px;height:36px;cursor:pointer}
 .burger span{display:block;height:1.5px;background:var(--ink);margin:6px 8px}
 
@@ -194,8 +195,16 @@ ul{list-style:none}
   .nav.open{display:flex}
   .nav a.top{height:auto;padding:12px 0;border:0}
   .nav a.top.on{color:var(--green-1)}
-  .drop{position:static;display:block;border:0;padding:0 0 4px 12px}
-  .drop a{padding:6px 0}
+  /* mobile: Produk collapses; categories open below as an indented list */
+  .nav>li{display:block}
+  .nav>li.has-drop{display:grid;grid-template-columns:1fr auto;align-items:center}
+  .nav .dd{display:grid;place-items:center;width:40px;height:40px;border:0;background:none;color:var(--p1);font-size:20px;cursor:pointer;transition:transform .2s}
+  .nav>li.open .dd{transform:rotate(180deg)}
+  .drop,.nav>li:hover .drop,.nav>li:focus-within .drop{position:static;display:none;grid-column:1/-1;border:0;border-left:2px solid var(--p7);border-radius:0;margin:0 0 8px 2px;padding:0 0 0 16px;min-width:0}
+  .nav>li.open .drop{display:block}
+  .drop a{padding:8px 0;font-size:14px}
+  .drop .arrow{display:none}
+  .drop a.on{font-weight:700;color:var(--p1)}
   .fgrid,.fgrid.five{grid-template-columns:1fr 1fr}
   .shelfgrid{grid-template-columns:repeat(2,1fr)}
   .stats b{font-size:40px}
