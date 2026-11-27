@@ -8,21 +8,90 @@
  <div class="login-card">
   <img class="logo" src="../assets/logo.png" alt="PT Karmand Mitra Andalan">
   <h1>Admin Panel</h1>
-  <p>Masuk untuk mengelola konten website, katalog produk, portofolio, dan kotak masuk.</p>
-  <form class="form" id="login-form">
-   <div class="field"><label>Email</label><input type="email" id="em" required value="admin@example.com"></div>
-   <div class="field"><label>Password</label><input type="password" id="pw" required value="password"></div>
-   <button class="btn" type="submit" style="width:100%">Masuk ke Dashboard</button>
+  <p>Akses terbatas. Masukkan kredensial admin untuk membuka panel pengelolaan.</p>
+  <form class="form" id="login-form" autocomplete="off">
+   <div class="field"><label for="em">Email</label><input type="email" id="em" required placeholder="nama@karmandsby.com"></div>
+   <div class="field"><label for="pw">Password</label><input type="password" id="pw" required placeholder="••••••••"></div>
+   <div id="login-err" style="display:none;color:#b91c1c;font-size:13px;font-weight:600;background:#fef2f2;border:1px solid #fecaca;padding:8px 12px;border-radius:var(--r)"></div>
+   <button class="btn" id="login-btn" type="submit" style="width:100%">Masuk ke Dashboard</button>
    <a class="btn outline" href="../index.html" style="width:100%">Kembali ke Website</a>
   </form>
-  <div class="login-hint">Akun demo: <b>admin@example.com</b> / <b>password</b></div>
  </div>
 </div>
 <script>
-document.getElementById('login-form').onsubmit = function (e) {
-  e.preventDefault();
-  try { localStorage.setItem('km_mockup_admin_auth', JSON.stringify({ email: document.getElementById('em').value.trim(), name: 'Admin Karmand' })); } catch (err) {}
-  location.href = 'index.html#dashboard';
-};
+(function () {
+  var form = document.getElementById('login-form');
+  var errEl = document.getElementById('login-err');
+  var btn = document.getElementById('login-btn');
+
+  function showErr(msg) {
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+  }
+
+  function b64ToBytes(b64) {
+    var bin = atob(b64);
+    var out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  async function unlockVault(email, password) {
+    var res = await fetch('vault.enc.json', { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error('NO_VAULT');
+    }
+    var vault = await res.json();
+    var enc = new TextEncoder();
+    var baseKey = await crypto.subtle.importKey(
+      'raw',
+      enc.encode(email.trim().toLowerCase() + ':' + password),
+      'PBKDF2',
+      false,
+      ['deriveKey']
+    );
+    var aesKey = await crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: b64ToBytes(vault.salt),
+        iterations: vault.iter || 300000,
+        hash: 'SHA-256'
+      },
+      baseKey,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['decrypt']
+    );
+    var plainBuf = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: b64ToBytes(vault.iv) },
+      aesKey,
+      b64ToBytes(vault.ct)
+    );
+    return new TextDecoder().decode(plainBuf);
+  }
+
+  form.onsubmit = async function (e) {
+    e.preventDefault();
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Memverifikasi...';
+    var email = document.getElementById('em').value.trim();
+    var password = document.getElementById('pw').value;
+    try {
+      var decrypted = await unlockVault(email, password);
+      sessionStorage.setItem('km_mockup_admin_vault', decrypted);
+      sessionStorage.setItem('km_mockup_admin_auth', JSON.stringify({ email: email, name: 'Admin Karmand' }));
+      location.href = 'index.html#dashboard';
+    } catch (err) {
+      if (err && err.message === 'NO_VAULT') {
+        showErr('Vault terenkripsi belum tersedia. Jalankan build enkripsi atau akses melalui GitHub Pages.');
+      } else {
+        showErr('Email atau password salah.');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Masuk ke Dashboard';
+    }
+  };
+})();
 </script>
 </body></html>

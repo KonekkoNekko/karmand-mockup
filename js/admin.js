@@ -1,7 +1,7 @@
 (function () {
   var AUTH_KEY = 'km_mockup_admin_auth';
   try {
-    if (!localStorage.getItem(AUTH_KEY)) {
+    if (!sessionStorage.getItem(AUTH_KEY)) {
       location.replace('login.html');
       return;
     }
@@ -32,7 +32,7 @@
   $('#drawer-close').onclick = closeDrawer;
   drawerBg.onclick = function (e) { if (e.target === drawerBg) closeDrawer(); };
   $('#burger').onclick = function () { $('#side').classList.toggle('open'); };
-  $('#btn-logout').onclick = function () { try { localStorage.removeItem(AUTH_KEY); } catch (e) {} location.href = 'login.html'; };
+  $('#btn-logout').onclick = function () { try { sessionStorage.removeItem(AUTH_KEY); sessionStorage.removeItem('km_mockup_admin_vault'); localStorage.removeItem(AUTH_KEY); } catch (e) {} location.href = 'login.html'; };
   $('#btn-reset').onclick = function () { window.KMStore.reset(); toast('Data demo berhasil direset.'); render(); };
 
   var NAV_GROUPS = [
